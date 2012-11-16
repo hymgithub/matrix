@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Value:</b>
+  <%= @value.value %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%= @value.weight %>
+</p>
+
+<p>
+  <b>Parameter:</b>
+  <%= @value.parameter_id %>
+</p>
+
+<p>
+  <b>Is default:</b>
+  <%= @value.is_default %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @value.status %>
+</p>
+
+
+
+
+<%= link_to 'Edit', edit_value_path(@value) %> |
+<%= link_to 'Back', values_path(:parameter_id=>@value.parameter_id) %>

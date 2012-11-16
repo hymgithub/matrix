@@ -1,0 +1,38 @@
+<!--<h1>Example#export</h1>
+<p>Find me in app/views/example/export.html.erb</p>
+<table border="1">
+  <tr>
+    <th>Code</th>
+  </tr>
+  <% @matrix_params.each do |y| %>
+  <tr>
+   <td><%= y.id%></td>
+  <% end %>
+ </tr>
+</table>
+-->
+
+<table class="table" bolder="1" width="100%" layoutH="135" rel="jbsxBox">
+		<thead>
+			<tr>
+				<th width="80">ID</th>
+ 	
+		<%@matrix_config.matrix_params.each do |matrix_param|%>
+						<th width="100"><%=matrix_param.parameter.name%></th>
+		<%end%>
+
+			</tr>
+		</thead>
+		<tbody>
+<%for i in 0...@manager.records.recordsArr.length do%>
+	<tr target="sid_obj" rel=i>
+		<td><%=i+1%></td>
+		<%for j in 0...@manager.records.recordsArr[i].valuesArr.length do%>
+		<td><%=Value.find(@manager.parameters.paramsArr[j].elementsArr[@manager.records.recordsArr[i].valuesArr[j]].value).value%></td>
+		<%end%>
+	</tr>          
+<%end%>
+			
+			
+		</tbody>
+</table>

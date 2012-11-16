@@ -1,0 +1,61 @@
+<h2 class="contentTitle">Group Config</h2>
+<div class="pageFormContent nowrap" layoutH="60">
+	<form method="post" action="ajaxDone.html" class="pageForm required-validate" onsubmit="return validateCallback(this)">
+	<fieldset>
+		<legend>Config Infomation</legend>
+		<dl>
+			<dt>Group Name：</dt>
+			<dd><input name="name" class="required" type="text" /></dd>
+		</dl>
+		<dl>
+			<dt>Belong to User：</dt>
+			<dd><input name="user_id" class="required" type="text"/></dd>
+		</dl>
+		<dl>
+			<dt>Belong to Project：</dt>
+			<dd><input class="required" name="project_id" type="text" /></dd>
+		</dl>
+		<dl>
+			<dt>Status：</dt>
+			<dd><input  name="status" type="text" /></dd>
+		</dl>
+		
+		<dl>
+			<dt><div class="buttonActive"><div class="buttonContent"><button type="submit">Edit</button></div></div> <div  class="button"><div class="buttonContent" ><button type="button" class="close">Cancel</button></div></div></dt>
+			
+			<dd><div class="buttonActive"><div class="buttonContent"><button type="submit">Delete</button></div></div> </dd>
+		</dl>
+	</fieldset>
+	</form>
+	
+	<fieldset>
+		<legend>Other Infomation</legend>
+		<dl>
+			<dt>Matrix Number：</dt>
+			<dd><input name="name" readonly="true" type="text" /></dd>
+		</dl>
+		<dl>
+			<dt>Create Time：</dt>
+			<dd><input name="user_id" class="required" type="text"/></dd>
+		</dl>
+		<dl>
+			<dt>Last Update Time：</dt>
+			<dd><input class="required" name="project_id" type="text" /></dd>
+		</dl>
+		<dl>
+			<dt>Results Number：</dt>
+			<dd><input  name="status" type="text" /></dd>
+		</dl>
+		
+		<dl>
+			<dt></dt>
+			
+			<dd>
+			<a class="button" href="createMatrix.html" target="dialog" rel="dlg_page10" mask="true" title="Create Matrix"><span>Create New Matrix</span></a>
+			
+			</dd>
+		</dl>
+	</fieldset>
+	
+	
+</div>

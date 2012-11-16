@@ -1,0 +1,57 @@
+<!--<h1>New limit_pair</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', limit_pairs_path %>
+-->
+<div class="pageContent">
+	
+	
+
+<%= form_for(@limit_pair,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>"return validateCallback(this,dialogAjaxDone)"}) do |f| %>
+		<div class="pageFormContent" layoutH="50">			
+   				 <%= f.hidden_field :matrix_config_id,:size=>20 %>	
+
+				
+			<div class="unit">
+				<label>First Value</label>
+
+				<select class="combox" name="limit_pair[first_value_id]" id="first" value="N/A">
+					<%@matrix_params.each do |matrix_param|%>
+						<%matrix_param.matrix_values.each do |matrix_value|%>
+					<option value="<%=matrix_value.value.id%>" size="20"><%=matrix_value.value.value%></option>						
+						<%end%>
+					<%end%>
+
+
+				</select>
+				<label>Second Value</label>
+				<select class="combox" name="limit_pair[second_value_id]" id="second" value="N/A">
+					<%@matrix_params.each do |matrix_param|%>
+						<%matrix_param.matrix_values.each do |matrix_value|%>
+					<option value="<%=matrix_value.value.id%>" size="20"><%=matrix_value.value.value%></option>						
+						<%end%>
+					<%end%>
+
+
+				</select>
+
+			</div>
+			
+		 	<div class="unit">
+				
+
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><%= f.button(value="Submit",:type=>"submit")%></div></div></li>
+
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+			</ul>
+		</div>
+		<% end %>
+	
+	
+</div>
+

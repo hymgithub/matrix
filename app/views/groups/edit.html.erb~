@@ -1,0 +1,141 @@
+<!--<h1>Editing Groups</h1>
+<%= form_for(@group) do |f| %>
+
+
+<div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @group %> |
+<%= link_to 'Back', groups_path(:user_id=>@group.user_id) %>
+-->
+<!--
+<section style="height: 1728px;" id="main" class="column">
+<div class="clear"></div>
+<%= form_for(@group) do |f| %>
+	<article class="module width_full">
+			<header><h3>Editing Groups</h3></header>
+				<div class="module_content">
+				
+					<fieldset>
+							<%= f.label :name %>
+   							 <%= f.text_field :name %>
+						</fieldset>
+						<fieldset>
+ <%= f.label :user_id %>
+    <%= f.number_field :user_id %>
+							
+						
+						</fieldset>
+						<fieldset style="width: 48%; float: left; margin-right: 3%;">
+							  <%= f.label :status %>   <%= f.number_field :status %>
+						</fieldset>
+						<fieldset style="width: 48%; float: left;"> 
+							 <%= f.label :status %>
+							 <%= f.number_field :status %>
+						</fieldset><div class="clear"></div>
+
+				</div>
+			<footer>
+				<div class="submit_link">
+					<div class="actions">
+					    <%= f.submit %>&nbsp;&nbsp;&nbsp;<input value="Reset" type="submit">
+					  </div>
+
+					
+				</div>
+			</footer>
+		</article>
+<% end %>
+</section>-->
+
+
+<h2 class="contentTitle">Group Config</h2>
+<div class="pageFormContent nowrap" layoutH="60">
+	
+	<%= form_for(@group,:html=>{:class=>"pageForm required-validate",:target=>"navTab",:rel=>@group.name,:onsubmit=>"return validateCallback(this)"}) do |f| %>
+	<fieldset>
+		<legend>Config Infomation</legend>
+		<dl>
+			<dt> <%= f.label :name %></dt>
+			<dd><%= f.text_field :name,:class=>"required",:size=>"20"%></dd>
+		</dl>
+		<dl>
+			<dt><%= f.label(value="BelongToUser")%></dt>
+			<dd><%= f.hidden_field :user_id,:size=>"20"%><%=@user.name%></dd>
+		</dl>
+		
+		<dl>
+			<dt> <%= f.label :status %></dt>
+			<dd>
+				<select class="combox" name="status">
+					<%if @group.status==0%>
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+					<%else%>
+					<option value="1" checked="true">Disable</option>
+					<option value="0"  >Enable</option>
+					<%end%>
+				</select>			
+			</dd>
+		</dl>
+		
+		<dl>
+			<dt><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Edit",:type=>"submit") %></div></div> 
+			<div  class="button"><div class="buttonContent" ><button type="button" class="reset">Cancle</button></div></div></dt>
+			
+			<dd><div class="buttonActive"><div class="buttonContent"><%= link_to f.button(value="Delete"), @group, method: :delete, data: { confirm: 'Are you sure?' } %></div></div> </dd>
+
+		</dl>
+	</fieldset>
+<% end %>
+	
+	
+	<fieldset>
+		<legend>Other Infomation</legend>
+		<dl>
+			<dt>Matrix Number：</dt>
+			<dd><input name="name" readonly="true" type="text" value="<%=@group.matrix_configs.count%>" /></dd>
+		</dl>
+		<dl>
+			<dt>Create Time：</dt>
+			<dd><input name="user_id" readonly="true" type="text" value="<%=@group.created_at%>"/></dd>
+		</dl>
+		<dl>
+			<dt>Last Update Time：</dt>
+			<dd><input  name="project_id"  readonly="true" type="text" value="<%=@group.updated_at%>"/></dd>
+		</dl>
+		<dl>
+			<dt>Results Number：</dt>
+			<dd><input  name="status" type="text" readonly="true"/></dd>
+		</dl>
+		
+		<dl>
+			<dt></dt>
+			
+			<dd>
+			<a class="button" href="<%=new_matrix_config_path(:group_id=>@group)%>" target="dialog" rel="dlg_page10" mask="true" title="Create Matrix"><span>Create New Matrix</span></a>
+			</dd>
+		</dl>
+	</fieldset>
+	
+	
+</div>
+
+
+
+

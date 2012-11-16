@@ -1,0 +1,29 @@
+<%= form_for(@limit_pair) do |f| %>
+  <% if @limit_pair.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@limit_pair.errors.count, "error") %> prohibited this limit_pair from being saved:</h2>
+
+      <ul>
+      <% @limit_pair.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :matrix_config_id %><br />
+    <%= f.number_field :matrix_config_id %>
+  </div>
+  <div class="field">
+    <%= f.label :first_value_id %><br />
+    <%= f.number_field :first_value_id %>
+  </div>
+  <div class="field">
+    <%= f.label :second_value_id %><br />
+    <%= f.number_field :second_value_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

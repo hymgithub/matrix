@@ -1,0 +1,82 @@
+<!-- added by huangym  -->
+<script type="text/javascript">
+	var i=1 ;
+	function addItem(){
+	//	alert(i);
+		var s1 = document.createElement("div");
+		s1.id = "param"+i.toString();
+		s1.className ="unit";
+                content1 = "<tr><td><label>Parameter:</label><select   id='value_id" + i +"' name='value_id[" + i +"]'><%@matrix_config.matrix_params.each do |matrix_param| %><%matrix_param.matrix_values.each do |matrix_value|%><option value='<%=matrix_value.value_id%>'><%= matrix_param.parameter.name %>: <%=Value.find(matrix_value.value_id).value%></option><%end%><%end%></select></td>";
+	
+		content2 =" <td> &nbsp;&nbsp; Coverage:	<input id='sbili" +i +"' name='sbili[" +i +"]' class='required' size='10'/>%</td><td>&nbsp;&nbsp;&nbsp;<img src='assets/delete.png' onclick='delItem(this)'/></td> </tr>";
+		
+		s1.innerHTML=content1+content2;   
+		document.getElementById("paramItems").appendChild(s1);
+		i +=1;
+		document.getElementById("num").value = i;
+
+	}
+
+	function delItem(node){
+		// default,only delete the last item			
+		//i-=1;
+		//var item = document.getElementById("param"+i.toString());  
+		var item = node.parentNode;
+		alert(item);
+		document.getElementById("paramItems").removeChild(item);
+		//document.getElementById("num").value = i;	
+	}     
+
+</script>
+<!--    end   -->
+	
+<div class ="pageContent">
+<form id="calculation" class="pageForm" target="navTab" title="After calculation" rel="calculation"  method="get" action="/algorithm/calculation" onsubmit="return openTabDone(this);//return validateCallback(this,dialogAjaxDone);" >   
+	
+	<!-- <div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"> -->
+	  <div class="pageFormContent" layoutH="50">		
+	     <div id ="paramItems"> 
+	    
+	     <div class ="unit" id = "param0">
+		<tr>
+			<td>
+				<label>Parameter:</label>
+				<select   id="value_id"  name="value_id[0]">
+					<%@matrix_config.matrix_params.each do |matrix_param| %>
+						<%matrix_param.matrix_values.each do |matrix_value|%>
+						<option value="<%=matrix_value.value_id%>"><%= matrix_param.parameter.name %>: <%=Value.find(matrix_value.value_id).value%></option>				
+						<%end%>
+					<%end%>
+				</select>
+			</td>	
+
+			<td> &nbsp;&nbsp; Coverage:
+				<input id="sbili" name="sbili[0]" class="required" size="10"/>%
+			</td>
+			
+			<td>&nbsp;
+				<img src="assets/add.png" onclick="addItem()"/>
+			</td>
+			
+	
+		</tr>
+	     </div>
+	     </div>
+	     <div class ="unit">
+		<label>Total Coverage:</label>
+	        <input name="tbili" id="tbili" size="15" class="required"/>
+		<input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=@matrix_config.id%>">%
+	        <input name="num" id="num" value="1" type="hidden"/>
+		<!-- <label><button type="submit">Calculate</button> </label>   -->
+	     </div>
+            
+
+	</div>
+	<div class="formBar">
+		 <ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <button type="submit">Calculate</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+		 </ul>
+	</div>
+	</form>       
+</div>

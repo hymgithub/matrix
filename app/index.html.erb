@@ -1,0 +1,353 @@
+<!--
+<h1>当前Matrix用到的参数</h1>
+
+<table>
+<tr>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th><%= link_to '增加Matrix param', new_matrix_param_path(:matrix_config_id=>@matrix_config) %></th>
+
+<th><%= link_to 'Generate Cases', algorithm_index_path(:matrix_config_id=>@matrix_config) %></th>
+    <th></th>
+</tr>
+  <tr>
+    <th>所属Matrix名称</th>
+    <th>参数名称</th>
+    <th>状态</th>
+    <th>增加Value</th>
+    <th>查看Values</th>
+    <th>查看</th>
+    <th>修改</th>
+    <th>删除</th>
+  </tr>
+
+<% @matrix_params.each do |matrix_param| %>
+  <tr>
+    <td align="center" width="15%"><%= matrix_param.matrix_config.name %></td>
+    <td align="center" width="15%"><%= matrix_param.parameter.name%></td>
+    <td align="center" width="10%"><%= matrix_param.status %></td>
+
+    <td align="center" width="15%"><%= link_to '增加Value', new_matrix_value_path(:matrix_param_id=>matrix_param) %></td>
+    <td align="center" width="15%"><%= link_to '查看Values', matrix_values_path(:matrix_param_id=>matrix_param)  %></td>
+
+    <td align="center" width="10%"><%= link_to 'Show', matrix_param %></td>
+    <td align="center" width="10%"><%= link_to 'Edit', edit_matrix_param_path(matrix_param) %></td>
+    <td align="center" width="10%"><%= link_to 'Destroy', matrix_param, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<h1>当前Matrix具体结构</h1>
+<table>
+<tr>
+<td width="50px;">参数名 </td><td width="50px;">值1 </td><td width="50px;">值2 </td><td width="50px;">值3 </td><td width="50px;">值4 </td><td width="50px;">值5 </td><td width="50px;">值6 </td></tr>
+<% @matrix_params.each do |matrix_param| %>
+<tr>
+<td><%= matrix_param.parameter.name%></td>
+
+	<% matrix_param.matrix_values.each do |matrix_value|%>
+	<td width="50px"><%=matrix_value.value.value%></td>
+        <%end%>
+</tr>
+<% end %>
+
+
+</table>
+
+<div class="tform">
+<button class="btn1" onclick="location='<%=new_group_path(:user_id=>@group.user.id)%>'" type="button">Add Group</button>
+<button class="btn1" onclick="location='<%=edit_group_path(@group)%>'" type="button">Edit This Group</button>
+<a rel="nofollow" data-method="delete" data-confirm="Are you sure?" href="<%=groups_path(:group_id=>@group)%>"><button class="btn1" type="button">Delete This Group</button></a>
+
+
+
+<button class="btn1" onclick="location='<%=new_matrix_config_path(:group_id=>@group)%>'" type="button">Add Matrix</button>
+<button class="btn1" onclick="location='<%=edit_matrix_config_path(@matrix_config)%>'" type="button">Edit Matrix</button>
+<a rel="nofollow" data-method="delete" data-confirm="Are you sure?" href="<%=matrix_configs_path(:matrix_config_id=>@matrix_config)%>"><button class="btn1" type="button">Del This Matrix</button></a>
+
+<button class="btn1" onclick="location='<%=new_matrix_param_path(:matrix_config_id=>@matrix_config)%>'" type="button">Add Parameters</button>
+
+</div>
+
+
+<div class="mtitle"><h1>Matrix Structure</h1></div>
+<table class="tlist" >
+<tbody>
+<thead>
+<tr class="title" >
+	<td width='15%' align="left"><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></td>
+<%i=0%>
+<%while i<@count do%>
+	<td  align="left">value<%=i%></td>
+<%i+=1%>
+<%end%>
+<td align='center'>Actions</td>
+
+
+
+</tr>
+</thead>
+<% @matrix_params.each do |matrix_param| %>
+
+<tr >
+	<td width='10%'><%=matrix_param.parameter.name%></td>
+<%i=0%>
+	<%matrix_param.matrix_values.each do |matrix_value|%>
+	<td><%=matrix_value.value.value%>(<%=matrix_value.value.weight%>)</td>	
+<%i+=1%>
+	<%end%>
+
+<%while i<@count do%>
+	<td></td>
+<%i+=1%>
+<%end%>
+
+<td align='right'>
+<%= link_to image_tag('edit.png'), edit_matrix_param_path(matrix_param) %>
+<%= link_to 'Edit', edit_matrix_param_path(matrix_param) %> |
+<%= link_to image_tag('show.png'), matrix_param %>
+<%= link_to 'Show', matrix_param %> |
+<%= link_to image_tag('delete.png'), matrix_param, method: :delete, data: { confirm: 'Are you sure?' }%>
+<%= link_to 'Delete', matrix_param, method: :delete, data: { confirm: 'Are you sure?' }%> |
+<%= link_to image_tag('showvalues.png'), matrix_values_path(:matrix_param_id=>matrix_param) %> 
+<%= link_to 'view the values', matrix_values_path(:matrix_param_id=>matrix_param) %> |
+<%= link_to image_tag('add.png'), new_matrix_value_path(:matrix_param_id=>matrix_param) %> 
+<%= link_to 'add Values', new_matrix_value_path(:matrix_param_id=>matrix_param) %> </td>
+
+</tr>
+
+
+<% end %>
+
+
+</tbody>
+<tfoot>
+<tr>
+<td colspan="<%=@count+2%>"><div class="tform">
+<button class="btn1" onclick="location='<%=algorithm_index_path(:matrix_config_id=>@matrix_config)%>'" type="button">Generate Cases</button>
+</div></td>
+</tr>
+</tfoot>
+
+</table> 
+-->
+<div class="accountInfo">
+	<div class="alertInfo">
+		<p><a href="<%=new_matrix_config_path(:group_id=>@group)%>" target="dialog" rel="dlg_page10" mask="true" title="Create Matrix">Add Matrix</a></p>
+		<p><a href="<%=edit_matrix_config_path(@matrix_config)%>" target="dialog" rel="dlg_page10" mask="true" title="Edit Matrix">Edit This Matrix</a>
+		<%= link_to 'Delete This Matrix', @matrix_config, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</p>
+	</div>
+	<!--<div class="right">
+		<p>Group Count 3，Matrix Count 12</p>
+		<p>September 6th，Thu</p>
+	</div>
+-->
+	<p><span>Matrix Generator </span></p>
+	<p>IQE Team</p>
+</div>
+
+
+<style type="text/css">
+	ul.rightTools {float:right; display:block;}
+	ul.rightTools li{float:left; display:block; margin-left:5px}
+</style>
+
+
+	
+	
+	
+
+<div class="pageContent" style="padding:5px">
+		
+	<div class="tabs">
+		<div class="tabsHeader">
+			<div class="tabsHeaderContent">
+				<ul>
+					<li><a href="javascript:;"><span>Define Inputs</span></a></li>
+					<li><a href="javascript:;"><span>Define Conditions</span></a></li>
+					<li><a href="javascript:;"><span>Assign Efforts</span></a></li>
+
+				</ul>
+			</div>
+		</div>
+       <!--add parameter tab start add by chuangye start -->
+		<div class="tabsContent">
+			<div>					
+			   <div id="jbsxBox" class="unitBox" style="margin-left:10px;">					
+			       <div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid">
+					<div class="panelBar">
+						<ul class="toolBar">
+							<li><a class="add" href="<%=new_matrix_param_path(:matrix_config_id=>@matrix_config)%>" target="dialog" mask="true" ><span>Add Parameter</span></a></li>
+							<li class="line">line</li>	
+							<li><a class="edit" href="<%=algorithm_index_path(:matrix_config_id=>@matrix_config)%>" target="navTab" title="Results"><span>Create Matrix</span></a></li>
+                                                        <li class="line">line</li>
+                                                        <li><a class="icon" href="<%=exportxls_export_path(:matrix_config_id=>@matrix_config)%>"><span>Export To Excel</span></a></li> 
+
+
+						</ul>		
+				        </div>
+					<table class="table" width="100%" layoutH="230" rel="jbsxBox">
+						<thead>
+							<tr>
+										<th width="40">ID</th>
+										<th><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></th>
+										<%i=0%>
+										<%while i<@count do%>
+											<th></th>
+										<%i+=1%>
+										<%end%>
+										<th width="150">Actions</th>
+										
+							</tr>
+						</thead>
+						<tbody>
+									
+
+								<%j=1%>			
+								<% @matrix_params.each do |matrix_param| %>
+									<tr target="sid_obj" rel="1">
+										<td><%=j%><%j+=1%></td>
+										<td><%=matrix_param.parameter.name%>(<%=matrix_param.matrix_values.count%>)</td>
+										    <%i=0%>
+										    <%matrix_param.matrix_values.each do |matrix_value|%>
+										<td ><%=matrix_value.value.value%>
+			<a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight">[<%=matrix_value.weight%>]</a>	
+									       </td>	
+									        <%i+=1%>
+										<%end%>
+									        <%while i<@count do%>
+										<td></td>
+									        <%i+=1%>
+									        <%end%>
+									       <td>
+<%= link_to image_tag('edit.png'), edit_matrix_param_path(matrix_param),{:title=>"Edit",:target=>"dialog",:mask=>"true"} %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%= link_to image_tag('delete.png'), matrix_param, method: :delete, data: { confirm: 'Are you sure?' }%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%= link_to image_tag('add.png'), new_matrix_value_path(:matrix_param_id=>matrix_param),{:title=>"Add Value",:target=>"dialog",:mask=>"true"} %> 
+									      </td>
+									</tr>
+									<% end %>		
+									
+						</tbody>
+				</table>
+					<div class="panelBar">	</div>
+		        </div>
+	         </div>
+	
+	   </div>
+	<!--add parameter tab end add by chuangye  -->	
+        <!--add Invalid Pairs tab start add by chuangye  -->
+			<div id="matrixparameter" class="unitBox" style="margin-left:5px;">
+				<div id="jbsxBox" class="unitBox" style="margin-left:10px;">	
+				<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid">
+					<div class="panelBar">
+						<ul class="toolBar">
+							<li><a class="add" href="<%=new_limit_pair_path(:matrix_config_id=>@matrix_config)%>" target="dialog" mask="true"><span>Add Invalid Pairs</span></a></li>									
+						</ul>		
+						</div>
+							<table class="table" width="100%" layoutH="180" rel="jbsxBox">
+								<thead>
+									<tr>
+										<th width="80">ID</th>
+										<th width="120">Parameter One</th>
+                                                                          	<th width="100">Parameter Two</th>	
+									</tr>
+								</thead>
+								<tbody>
+									<%j=1%>			
+									<% @matrix_config.limit_pairs.each do |limit_pair| %>
+											<tr target="sid_obj" rel="1">
+												<td><%=j%><%j+=1%></td>
+												<td><%=Value.find(limit_pair.first_value_id).value%></td>
+												<td><%=Value.find(limit_pair.second_value_id).value%></td>
+                                                                                          <!--      <td>
+<%= link_to image_tag('edit.png'), edit_limit_pair_path(limit_pair)%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<%= link_to image_tag('delete.png'), limit_pair, method: :delete, data: { confirm: 'Are you sure?' }%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                                </td>-->
+
+									                </tr>
+									<% end %>		
+									
+								</tbody>
+							</table>
+							<div class="panelBar">	</div>
+				       </div>
+				</div>
+
+			</div>
+			
+          <!--add Invalid Pairs tab end add by chuangye  -->
+          <!--create matrix tab start add by chuangye  -->
+	<div class="form">
+	     <form id="calculation" class="pageForm" target="navTab" rel="calculation"  method="get" action="/algorithm/calculation" >
+			<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid">
+                              <label>Parameter:</label>
+					<select   id="value_id"  name="value_id">
+						<%@matrix_config.matrix_params.each do |matrix_param| %>
+							<%matrix_param.matrix_values.each do |matrix_value|%>
+	<option value="<%=matrix_value.value_id%>"><%=Value.find(matrix_value.value_id).value></option>								
+							<%end%>
+						<%end%>
+
+					</select>
+
+				<label>Coverage:</label>
+					<input id="sbili" name="sbili" class="required" size="15"/>
+
+				<label>Total Coverage</label>
+		   		       <input name="tbili" id="tbili" size="15" class="required"/>
+				<input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=@matrix_config.id%>">
+				<label><button type="submit">Calculate</button></label>
+                       </div>
+              </form>
+      </div>
+          <!--create matrix tab start add by chuangye  -->
+<!--
+<script>
+var value_id = 0;
+var sbili =0;
+var tbili = 0;
+function getValue(){
+ value_id = document.getElementById('value_id').value;
+ sbili = document.getElementById('sbili').value;
+ tbili = document.getElementById('tbili').value;
+}
+</script>
+<a class="icon" onclick="getValue();" href="algorithm/calculation?matrix_config_id=<%=@matrix_config.id%>&value_id=value_id&sbili=sbili&tbili=tbili" target="navTab" title="Calculation"><span>Calculation</span></a>
+-->
+
+                            
+			
+<!--			<div>Results</div>
+			
+			<div>Simple Analyze</div>
+-->
+	</div>
+		<div class="tabsFooter">
+			<div class="tabsFooterContent"></div>
+		</div>
+
+</div>
+
+
+	<script type="text/javascript">
+function ShowElement(element)
+{
+var oldhtml = element.innerHTML;
+var newobj = document.createElement('input');//创建新的input元素
+newobj.type = 'text';//为新增元素添加类型
+newobj.size=20;
+newobj.value=oldhtml
+newobj.onblur = function(){
+element.innerHTML = this.value ? this.value : oldhtml;//当触发时判定新增元素值是否为空，为空则不修改，并返回原有值 
+}
+element.innerHTML = '';
+element.appendChild(newobj);
+newobj.focus();
+}
+</script>
+
+

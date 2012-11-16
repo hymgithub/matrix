@@ -1,0 +1,65 @@
+<!--<h1>Editing matrix_param</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @matrix_param %> |
+<%= link_to 'Back', matrix_params_path %>
+-->
+
+<div class="pageContent">
+	<%= form_for(@matrix_param,:html=>{:class=>"pageForm required-validate",:target=>"navTab",:rel=>@matrix_param.parameter.name,:onsubmit=>"return validateCallback(this)"}) do |f| %>
+
+		<div class="pageFormContent" layoutH="50">
+			<div class="unit">
+				<label> <%= f.label :matrix_config_id %></label>
+				 <%= f.number_field :matrix_config_id ,:size=>"20",:class=>"required"%>	
+			</div>
+			<div class="unit">
+				<label>ParameterName：</label>
+				<input name="name" value="<%=Parameter.find(@matrix_param.parameter_id).name%>" class="required" size="15"/>
+			</div>
+			<div class="unit">
+				<label>Select from system：</label>
+				 <select  class="combox"  name="sysparameter_id">
+				   <option value="0">select from system</option>
+
+				   <% @sysparameters.each do |sysparameter| %>
+
+				   <option value="<%= sysparameter.id %>"><%= sysparameter.name %>(<%=sysparameter.values.count%>)</option>
+				   <% end %>
+
+				 <% @group.group_parameters.each do |groupparameter| %>
+				   <option value="<%= groupparameter.parameter.id %>"><%= groupparameter.parameter.name %>(<%=groupparameter.parameter.values.count%>)</option>
+				   <% end %>
+				</select>
+
+ 			</div>
+
+		
+
+			<div class="unit">
+				<label>Status</label>
+				
+				<select class="combox" name="status">
+					<%if @matrix_param.status==0%>
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+					<%else%>
+					<option value="1" checked="true">Disable</option>
+					<option value="0"  >Enable</option>
+					<%end%>
+				</select>
+			</div>
+
+			
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Edit",:type=>"submit") %></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+			</ul>
+		</div>
+	<% end %>
+	
+</div>

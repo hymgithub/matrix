@@ -1,0 +1,56 @@
+<% content_for :footer do %>
+<div id="footer">Copyright &copy; 2012 <a href="http://www.adobe.com" target="_blank">Adobe IQE Team</a> Tel：010-8888888</div>
+<% end%>
+
+<div id="leftside">
+			<div id="sidebar_s">
+				<div class="collapse">
+					<div class="toggleCollapse"><div></div></div>
+				</div>
+			</div>
+			<div id="sidebar">
+				<div class="toggleCollapse"><h2>控制面板</h2><div>Hidden</div></div>
+
+				<div class="accordion" fillSpace="sidebar">
+					<div class="accordionHeader">
+						<h2><span>Folder</span>GroupList</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree treeFolder">
+				<li><a href="main.html" target="navTab" rel="main">Home</a></li>
+				<li><a href="createGroup.html" target="dialog" rel="dlg_page10" mask="true" title="Create Group"><span>添加组</span></a></li>
+				<li><a href="groupindex.html" target="navTab" rel="page0" onmouseover="showactions(this)"onmouseout="hideactions(this)">Photoshop</a>
+								<ul>							
+									<li><a href="matrixindex.html" target="navTab" rel="page1">Matrix1</a></li>
+								</ul>
+							</li>
+						
+						</ul>
+						
+					</div>
+						
+					<div class="accordionHeader">
+						<h2><span>Folder</span>Analyze</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree treeFolder">
+						
+							<li><a href="analyze_page.html" target="navTab" rel="demo_page1">Cover Rate</a></li>
+							<li><a href="layout2.html" target="navTab" rel="pagination2">Other Results</a></li>
+							
+						</ul>
+					</div>
+					<div class="accordionHeader">
+						<h2><span>Folder</span>Setting</h2>
+					</div>
+					
+					<div class="accordionContent">
+						<ul class="tree">
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page">SystemSetting</a></li>
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page2">GroupSetting</a></li>
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page3">Others</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>

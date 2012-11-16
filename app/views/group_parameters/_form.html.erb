@@ -1,0 +1,29 @@
+<%= form_for(@group_parameter) do |f| %>
+  <% if @group_parameter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@group_parameter.errors.count, "error") %> prohibited this group_parameter from being saved:</h2>
+
+      <ul>
+      <% @group_parameter.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :group_id %><br />
+    <%= f.number_field :group_id %>
+  </div>
+  <div class="field">
+    <%= f.label :parameter_id %><br />
+    <%= f.text_field :parameter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

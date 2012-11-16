@@ -1,0 +1,68 @@
+<!-- added by huangym  -->
+<script type="text/javascript">
+	var i=1 ;
+	function addItem(){
+	//	alert(i);
+		var s1 = document.createElement("div");
+		s1.id = i;
+		s1.className ="unit";
+                content1 = "<tr><td><label>Parameter:</label><select   id='value_id" + i +"' name='value_id " + i +"'><%@matrix_config.matrix_params.each do |matrix_param| %><%matrix_param.matrix_values.each do |matrix_value|%><option value='<%=matrix_value.value_id%>'><%=Value.find(matrix_value.value_id).value%></option><%end%><%end%></select></td>";
+
+		content2 =" <td> &nbsp;&nbsp; Coverage:	<input id='sbili" +i +"' name='sbili" +i +"' class='required' size='10'/>%</td><td>&nbsp;&nbsp;&nbsp;<img src='assets/delete.png' onclick='delItem(this)'/></td> </tr>";
+		
+		s1.innerHTML=content1+content2;   
+		document.getElementById("paramItems").appendChild(s1);
+		i = i+1;
+	}
+
+	function delItem(img){
+		var pa = img.parentNode;
+		pa.innerHTML="";
+	//	document.removeChild(pa);
+	}
+
+</script>
+<!--    end   -->
+<div class="pageContent">
+	
+	<%= form_for([@user,@user.groups.build],:html=>{:class=>"pageForm",:target=>"dialog", :onsubmit=>"return validateCallback(this,dialogDone)"}) do |f| %>
+		<div class="pageFormContent" layoutH="50">
+			<div class="unit">
+				<%= f.label  :name %>
+   				<%= f.text_field :name,:size=>20,:class=>"required" %>				
+
+			</div>
+
+				 <%= f.hidden_field :user_id,:size=>"20"%>
+			
+			<div class="unit">
+
+			<%= f.label :status %> 
+					<select class="combox" name="status">					
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+					
+				</select>	
+			
+
+
+			</div>
+			
+			
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><%= f.button(value="submit",:type=>"submit")%></div></div></li>
+
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">cancel</button></div></div></li>
+			</ul>
+		</div>
+		<% end %>
+	
+	
+</div>
+
+
+
+

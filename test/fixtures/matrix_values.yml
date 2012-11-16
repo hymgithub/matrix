@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  matrix_param_id: 1
+  value_id: 1
+  weight: 1
+  is_chosen: false
+  status: 1
+
+two:
+  matrix_param_id: 1
+  value_id: 1
+  weight: 1
+  is_chosen: false
+  status: 1

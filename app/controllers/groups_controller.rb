@@ -1,0 +1,122 @@
+class GroupsController < ApplicationController
+
+  layout "mainlayout",:only=>"index"
+  # GET /groups
+  # GET /groups.json
+  def index
+
+    @user = User.find(params[:user_id])
+    @groups = @user.groups
+    
+
+
+    #@groups = Group.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @groups }
+    end
+  end
+
+  # GET /groups/1
+  # GET /groups/1.json
+  def show
+    @group = Group.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @group }
+    end
+  end
+
+  # GET /groups/new
+  # GET /groups/new.json
+  def new
+    @user = User.find(params[:user_id])
+    @groups = @user.groups.new
+
+    #@group = Group.new
+  
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @group }
+    end
+  end
+
+  # GET /groups/1/edit
+  def edit
+    @group = Group.find(params[:id])
+    @user = User.find(@group.user_id)
+    @groups = @user.groups
+    render :action =>'edit',:layout=>"content"
+
+
+  end
+
+  # POST /groups
+  # POST /groups.json
+  def create
+    @group = Group.new(params[:group])
+    @user = User.find(params[:user_id])
+
+   # @url =" /group/sidebartab?user_id=#{params[:user_id]}"
+    #print "**********************************"
+    #print @url
+    respond_to do |format|
+      if @group.save
+	
+        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        #format.json { render json: @group, status: :created, location: @group }
+format.json { render :json=>{'statusCode'=>'200','message'=>'Add Group Success!','navTableId'=>'sidetab','rel'=>'',
+'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>''} }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /groups/1
+  # PUT /groups/1.json
+  def update
+    @group = Group.find(params[:id])
+
+    respond_to do |format|
+      if @group.update_attributes(params[:group])
+        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+#        format.json { head :no_content }
+format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Group Success!','navTableId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'','confirmMsg'=>''} }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /groups/1
+  # DELETE /groups/1.json
+  def destroy
+    @group = Group.find(params[:id])
+    @user_id = @group.user_id
+    @group.destroy
+
+    respond_to do |format|
+      format.html { redirect_to groups_url(:user_id=>@user_id) }
+      # format.html { redirect_to groups_sidebartab_url(:user_id=>@user_id) }
+      format.json { head :no_content }
+    end
+  end
+
+  def sidebartab
+    @user = User.find(params[:user_id])
+    @groups = @user.groups
+     respond_to do |format|
+      format.html # sidebar.html.erb
+      format.json { render json: @groups }
+     end
+  end
+
+  def a
+  end
+  
+end

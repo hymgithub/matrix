@@ -1,0 +1,8 @@
+class ChangeTypeMatrixValueWeight < ActiveRecord::Migration
+  def up
+	change_column :weight, :integer, :float
+  end
+
+  def down
+  end
+end

@@ -1,0 +1,8 @@
+class ChangecolumnMatrixValuesWeight < ActiveRecord::Migration
+  def up
+	change_column :matrix_values,:weight, :decimal
+  end
+
+  def down
+  end
+end

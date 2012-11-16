@@ -1,0 +1,59 @@
+<!--
+<%= form_for([@user,@user.groups.build]) do |f| %>
+  
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+-->
+<section style="height: 1728px;" id="main" class="column">
+<div class="clear"></div>
+<%= form_for([@user,@user.groups.build]) do |f| %>
+	<article class="module width_full">
+			
+				<div class="module_content">
+				
+					<fieldset>
+							<%= f.label :name %>
+   							 <%= f.text_field :name %>
+						</fieldset>
+						<fieldset>
+ <%= f.label :user_id %>
+    <%= f.number_field :user_id %>
+							
+						
+						</fieldset>
+						<fieldset style="width: 48%; float: left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
+							  <%= f.label :status %>   <%= f.number_field :status %>
+						</fieldset>
+						<fieldset style="width: 48%; float: left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+							 <%= f.label :status %>
+							 <%= f.number_field :status %>
+						</fieldset><div class="clear"></div>
+
+				</div>
+			<footer>
+				<div class="submit_link">
+					<div class="actions">
+					    <%= f.submit %>&nbsp;&nbsp;&nbsp;<input value="Reset" type="submit">
+					  </div>
+
+					
+				</div>
+			</footer>
+		</article><!-- end of post new article -->
+<% end %>
+</section>

@@ -1,0 +1,97 @@
+<!--<h1>Create  matrix_value or select from system</h1>
+
+<%= form_for(@matrix_value) do |f| %>
+
+ <div class="field">
+    <%= f.label :matrix_param_id %><br />
+    <%= f.number_field :matrix_param_id %>
+  </div>
+  <div class="field">
+    <%= f.label :value_id %><br />
+<input name="value"/>
+
+   <select name="sysvalue_id">
+   <option value="0"></option>
+   <% @sysvalues.each do |sysvalue| %>
+   <option value="<%= sysvalue.id %>"><%= sysvalue.value %></option>
+   <% end %>
+
+</select>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br />
+    <%= f.number_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :is_chosen %><br />
+    <%= f.check_box :is_chosen %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<%= link_to 'Back', matrix_params_path(:matrix_config_id=>@matrix_value.matrix_param.matrix_config_id) %>
+-->
+
+<div class="pageContent">
+	<%= form_for(@matrix_value,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>"return validateCallback(this,dialogAjaxDone)"}) do |f| %>
+
+		<div class="pageFormContent" layoutH="50">
+
+
+				 <%= f.hidden_field :matrix_param_id ,:size=>"20",:class=>"required"%>	
+
+			<div class="unit">
+				<label>ValueName：</label>
+				<input name="value" class="textInput" size="15"/>
+			</div>
+			<div class="unit">
+				<label>Select from system：</label>
+				 <select  class="combox"  name="sysvalue_id">
+				   <option value="0">select</option>
+				  <% @sysvalues.each do |sysvalue| %>
+				   <option value="<%= sysvalue.id %>"><%= sysvalue.value %></option>
+				   <% end %>
+				</select>
+
+ 			</div>
+
+			<div class="unit">
+				<label>Weight</label>
+				   <%= f.number_field :weight,{:class=>"requered number textInput valid",:size=>"15"} %>
+			</div>
+			<div class="unit">
+				<label>HaveChosen</label>
+			    <%= f.check_box :is_chosen %>
+			</div>
+			<div class="unit">
+				<label>Status</label>
+				
+				<select class="combox" name="status">
+
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+
+				</select>
+			</div>
+
+			
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Submit",:type=>"submit") %></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+			</ul>
+		</div>
+	<% end %>
+	
+</div>
+

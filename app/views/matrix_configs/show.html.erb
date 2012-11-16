@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @matrix_config.name %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @matrix_config.group_id %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @matrix_config.version_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @matrix_config.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_matrix_config_path(@matrix_config) %> |
+<%= link_to 'Back', matrix_configs_path(:group_id=>@matrix_config.group_id) %>

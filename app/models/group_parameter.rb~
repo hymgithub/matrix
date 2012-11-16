@@ -1,0 +1,4 @@
+class GroupParameter < ActiveRecord::Base
+  attr_accessible :group_id, :parameter_id, :status
+  belongs_to :group,:parameter
+end

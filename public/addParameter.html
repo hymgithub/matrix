@@ -1,0 +1,45 @@
+
+<div class="pageContent">
+	
+	<form method="post" action="demo/pagination/ajaxDone2.html" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="58">
+
+			<div class="unit">
+				<label>ParameterName：</label>
+				<input type="text" name="patientNo" size="30" minlength="6" maxlength="20" class="required" />
+			</div>
+			<div class="unit">
+			<label>or Select</label>
+				<select name="parametername" size="30" class="required combox">
+					<option value=""></option>
+					<option value="Broser"   selected>Language</option>
+					<option value="OS">OS</option>
+					<option value="Broser">Broser</option>
+					
+				</select>
+			</div>	
+			<div class="unit">
+				<label>Weight：</label>
+				<input type="text" name="weight" size="30" class="required"/>
+			</div>
+			<div class="unit">
+				<label>Status：</label>
+				<input type="text" name="status" size="30" class="required"/>
+			</div>
+			<div class="unit">
+			<label>Values：</label>
+			<textarea name="textarea1" cols="50" rows="3"></textarea>
+			
+			</div>
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+			</ul>
+		</div>
+	</form>
+	
+</div>
+

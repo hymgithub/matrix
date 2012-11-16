@@ -1,0 +1,7 @@
+class Parameter < ActiveRecord::Base
+  attr_accessible :is_default, :name, :status, :weight
+  has_many:values, :dependent=> :destroy
+  has_many:matrix_params, :dependent=>:destroy
+  has_many:group_parameters
+  #validates_uniqueness_of :name
+end

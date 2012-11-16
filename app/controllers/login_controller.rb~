@@ -1,0 +1,29 @@
+class LoginController < ApplicationController
+  layout "user"
+  @hint
+  def login
+  	  username='admin'
+      password='admin'
+  		#username = params[:user][:name]
+  		#password = params[:user][:password]
+      unless  request.get?
+        
+      
+  		@hint = "OK"
+  		@user = User.find_by_name(username)
+  		if @user.class == NilClass
+  			@hint = 'Unregisted username'
+  		elsif @user.password == password
+  			@hint = "Welcome back"
+  			render "login/index"
+  		else
+  			@hint = "Login failed,please check up your info"
+  		end	
+  	end
+  end
+
+  def index
+  	
+    @tips ='hello! welcome back !'
+  end
+end

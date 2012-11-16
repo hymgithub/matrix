@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Matrix params:</b>
+  <%= @result.matrix_params_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @result.value_id %>
+</p>
+
+<p>
+  <b>Is chose:</b>
+  <%= @result.is_chose %>
+</p>
+
+<p>
+  <b>Sort:</b>
+  <%= @result.sort_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_result_path(@result) %> |
+<%= link_to 'Back', results_path %>

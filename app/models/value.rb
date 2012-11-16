@@ -1,0 +1,7 @@
+class Value < ActiveRecord::Base
+  belongs_to :parameter
+  attr_accessible :is_default, :parameter_id, :status, :value, :weight
+  has_many :matrix_values
+  has_many :group_values
+  has_many :limit_pairs
+end

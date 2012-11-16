@@ -1,0 +1,11 @@
+<table border="1">
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% @parameters.each do |p| %>
+  <tr>
+   <td><%= p.name %></td>
+  <% end %>
+ </tr>
+</table>
+<%= link_to "Export as Excel", export_person_url %>

@@ -1,0 +1,83 @@
+<script type="text/javascript">
+     function setSecondValue(){
+	var Values = new Array(["123","abc"],["456","cde"]);
+	return Values;
+     }
+     function test(value_id){
+        //document.getElementById("second").options.add(new Option("99","hym"));
+//	alert(value_id);
+	var cmb = document.getElementById("second");
+//	var sel = document.createElement("select"
+	var opt = document.createElement("option");
+	opt.text ="hymtest";
+	opt.value = 99;
+//	alert(opt.text);
+	cmb.options.add(opt);
+     }
+</script>
+<!--<h1>New limit_pair</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', limit_pairs_path %>
+-->
+<div class="pageContent">
+	
+	
+
+<%= form_for(@limit_pair,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>"return navTabSearch(this)"}) do |f| %>
+		<div class="pageFormContent" layoutH="50">			
+   				 <%= f.hidden_field :matrix_config_id,:size=>20 %>	
+
+				
+			<div class="unit">
+				<label>First Value</label>
+
+
+				<select class="combox" name ="limit_pair[first_value_id]" id="first" onchange="test(this.options[this.selectedIndex].value)">
+
+	<!--			<select class="combox" name="limit_pair[first_value_id]" id="first" onChange="<%# = remote_function(:update =>"limit_pair[second_value_id]",:url =>{:action =>"getSecondValue"} )  %>" >    -->
+					
+					<%@matrix_params.each do |matrix_param|%>
+					     <% if matrix_param!=nil  and  matrix_param.matrix_values != nil %>
+						<%matrix_param.matrix_values.each do |matrix_value|%>
+					<option value="<%=matrix_value.value.id%>" size="20"><%=matrix_value.value.value%></option>						
+						<%end%>
+					     <% end %>
+					<%end%>
+
+
+				</select>
+
+				<label>Second Value</label>
+
+				<select class="combox" name="limit_pair[second_value_id]" id="second" >
+					<% @matrix_params.each do |matrix_param|%>
+					    <% if matrix_param!=nil and matrix_param.matrix_values != nil %>
+						<% matrix_param.matrix_values.each do |matrix_value|%>	
+					<option value="<%= matrix_value.value.id %>" size="20"><%=matrix_value.value.value%></option>						
+						<%end%>
+					    <% end %>
+					<%end%>
+                      
+				</select>
+  
+			</div>
+			
+		 	<div class="unit">
+				
+
+			</div>
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><%= f.button(value="Submit",:type=>"submit")%></div></div></li>
+
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+			</ul>
+		</div>
+		<% end %>
+	
+	
+</div>
+

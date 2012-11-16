@@ -1,0 +1,33 @@
+<h1>Editing value</h1>
+<%= form_for(@value) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br />
+    <%= f.text_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :parameter_id %><br />
+    <%= f.number_field :parameter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :is_default %><br />
+    <%= f.check_box :is_default %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @value %> |
+<%= link_to 'Back', values_path %>

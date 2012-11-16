@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Matrix Tool- Adobe</title>
+
+<script src="assets/javascripts/jquery-1.3.2.min.js" language="javascript" type="text/javascript"></script>
+<script src="assets/javascripts/frame.js" language="javascript" type="text/javascript"></script>
+<link href="assets/stylesheets/frame.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="showmenu">
+<div class="pagemask"></div>
+<iframe class="iframemask"></iframe>
+<div class="head">
+<div class="top_logo"> <img src="../../assets/images/logo.gif" width="127" height="50"  alt="Matrix Tool" /> </div>
+    <div class="top_link">
+      <ul>
+	    <li class="welcome">Welcome yquan!&nbsp;</li>
+		<li class="menuact"><a href="#" id="togglemenu">Hiden menu</a></li>
+         
+        <li><a href="exit.htm" target="_top">exit</a></li>
+		
+      </ul>
+     
+    </div>
+
+    <div class="nav" id="nav">
+      <ul>
+              <li><a class="thisclass" href="index_body.htm" _for="common" target="main">Input</a></li>
+              <li><a href="catalog_main.htm" _for="content" target="main">Generate</a></li>
+              <li><a href="readme.htm" _for="member" target="main">Analyze</a></li>
+              <li><a href="readme.htm" _for="system" target="main">Setting</a></li>
+      </ul>
+    </div>
+</div><!-- header end -->
+
+<div class="left">
+<div class="menu" id="menu">
+<div id="items_common">
+<dl id="dl_items_1_1">
+<dt>Photoshop</dt>
+<dd>
+<ul>
+
+<li><a href="catalog_main.htm" target="main">Matrix1</a></li>
+<li><a href="catalog_main.htm" target="main">Matrix2</a></li>
+</ul>
+</dd>
+</dl>
+
+<dl id="dl_items_1_1">
+<dt>Flash</dt>
+<dd>
+<ul>
+
+<li><a href="catalog_main.htm" target="main">Matrix3</a></li>
+<li><a href="catalog_main.htm" target="main">Matrix4</a></li>
+</ul>
+</dd>
+</dl>
+
+
+</div><!-- Item End -->
+
+<div id="items_content">
+<dl id="dl_items_1_2">
+        <dt>Results</dt>
+        <dd>
+          <ul>
+<li><a href="catalog_main.htm" target="main">Result</a></li>
+
+</ul>
+</dd>
+</dl>
+</div>
+
+
+
+<div id="items_member">
+<dl id="dl_items_1_6">
+        <dt>Analyze</dt>
+        <dd>
+          <ul>
+<li><a href="readme.htm" target="main">Cover Rate</a></li>
+<li><a href="readme.htm" target="main">Special Recommend</a></li>
+<li><a href="readme.htm" target="main">Cost Time</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+
+<div id="items_system">
+<dl id="dl_items_1_7">
+        <dt>SystemSetting</dt>
+        <dd>
+          <ul>
+<li><a href="readme.htm" target="main">Basic Setting</a></li>
+<li><a href="readme.htm" target="main">User Manage</a></li>
+<li><a href="readme.htm" target="main">Group Manage</a></li>
+<li><a href="readme.htm" target="main">Log Manage</a></li>
+<li><a href="readme.htm" target="main">SystemParameter</a></li>
+<li><a href="readme.htm" target="main">LimitParameter</a></li>
+
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div><!-- left end -->
+
+<div class="right">
+  <div class="main">
+    <iframe id="main" name="main" frameborder="0" src="index_body.htm"></iframe>
+  </div>
+</div><!-- right end -->
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<%= stylesheet_link_tag    "style", :media => "screen" %>
+<%= stylesheet_link_tag    "core", :media => "screen" %>
+<%= stylesheet_link_tag    "print", :media => "print" %>
+<div id="leftside">
+			<div id="sidebar_s">
+				<div class="collapse">
+					<div class="toggleCollapse"><div></div></div>
+				</div>
+			</div>
+			<div id="sidebar" >
+				<div class="toggleCollapse"><h2>Matrix Panel</h2><div>Hidden</div></div>
+
+				<div class="accordion" fillSpace="sidebar">
+					<div class="accordionHeader">
+						<h2><span>Folder</span>Group List</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree treeFolder">
+						<li><a href="main.html" target="navTab" rel="main">Home</a></li>
+						<li>
+<%= link_to 'Add Group', new_group_path(:user_id=>@user.id),{:target=>"dialog",:rel=>"dlg_page10", :mask=>"true",:title=>"Create Group"} %>
+
+</li>
+<% @groups.each do |group| %>	
+	<li><%= link_to group.name, edit_group_path(group),{:target=>"navTab",:rel=>group.name,:onmouserover=>"showactions(this)",:onmouseout=>"hideactions(this)"}%> 
+				<%if group.matrix_configs.count>0%>						
+				<ul>	<%group.matrix_configs.each do |matrix_config|%>						
+							<li><%=link_to matrix_config.name,matrix_params_path(:matrix_config_id =>matrix_config),{:target=>"navTab",:rel=>group.name+matrix_config.name}%>
+</li>
+							<%end%>
+						</ul>
+	</li>
+	<%end%>
+<%end%>
+
+							
+						
+						</ul>
+						
+					</div>
+						
+					<div class="accordionHeader">
+						<h2><span>Folder</span>Analyze</h2>
+					</div>
+					<div class="accordionContent">
+						<ul class="tree treeFolder">
+						
+							<li><a href="analyze_page.html" target="navTab" rel="demo_page1">Cover Rate</a></li>
+							<li><a href="layout2.html" target="navTab" rel="pagination2">Other Results</a></li>
+							
+						</ul>
+					</div>
+					<div class="accordionHeader">
+						<h2><span>Folder</span>Setting</h2>
+					</div>
+					
+					<div class="accordionContent">
+						<ul class="tree">
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page">SystemSetting</a></li>
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page2">GroupSetting</a></li>
+							<li><a href="setting_dialog.html" target="dialog" rel="dlg_page3">Others</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>

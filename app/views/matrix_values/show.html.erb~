@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Matrix param:</b>
+  <%= @matrix_value.matrix_param_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @matrix_value.value_id %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%= @matrix_value.weight %>
+</p>
+
+<p>
+  <b>Is chosen:</b>
+  <%= @matrix_value.is_chosen %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @matrix_value.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_matrix_value_path(@matrix_value) %> |
+<%= link_to 'Back', matrix_values_path(:matrix_param_id=>@matrix_value.matrix_param.id) %>

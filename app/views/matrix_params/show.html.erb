@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Matrix config:</b>
+  <%= @matrix_param.matrix_config_id %>
+</p>
+
+<p>
+  <b>Parameter:</b>
+  <%= @matrix_param.parameter_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @matrix_param.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_matrix_param_path(@matrix_param) %> |
+<%= link_to 'Back', matrix_params_path(:matrix_config_id=>@matrix_param.matrix_config_id) %>

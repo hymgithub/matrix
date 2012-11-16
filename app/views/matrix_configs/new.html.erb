@@ -1,0 +1,48 @@
+<!--<h1>New matrix_config</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', matrix_configs_path(:group_id=>@group.id) %>
+-->
+	
+<div class="pageContent">
+	<%= form_for(@matrix_config,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>"return validateCallback(this,dialogDone)"}) do |f| %>
+
+		<div class="pageFormContent" layoutH="50">
+			<div class="unit">
+				<label>MatrixName：</label>
+				<%= f.text_field :name,:size=>"20",:class=>"required" %>
+
+			</div>
+	
+				    <%= f.hidden_field :group_id %>
+
+			<div class="unit">
+				<label>Status</label>
+				
+				<select class="combox" name="status">
+
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+
+				</select>
+			</div>
+
+			<div class="unit">
+				<label>ProjectVersion</label>
+				<select class="combox" name="project">					
+					<option value="<%=@matrix_config.version_id%>"><%=@matrix_config.version_id%></option>					
+				</select>
+			</div>
+			
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Submit",:type=>"submit") %></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+			</ul>
+		</div>
+	<% end %>
+	
+</div>

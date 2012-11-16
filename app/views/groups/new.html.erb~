@@ -1,0 +1,44 @@
+
+<div class="pageContent">
+	
+	<%= form_for([@user,@user.groups.build],:html=>{:class=>"pageForm",:target=>"dialog", :onsubmit=>"return validateCallback(this,dialogAjaxDone)"}) do |f| %>
+		<div class="pageFormContent" layoutH="50">
+			<div class="unit">
+				<%= f.label  :name %>
+   				<%= f.text_field :name,:size=>20,:class=>"required" %>				
+
+			</div>
+
+				 <%= f.hidden_field :user_id,:size=>"20"%>
+			
+			<div class="unit">
+
+			<%= f.label :status %> 
+					<select class="combox" name="status">					
+					<option value="0" checked="true" >Enable</option>
+					<option value="1" >Disable</option>
+					
+				</select>	
+			
+
+
+			</div>
+			
+			
+			
+		</div>
+		<div class="formBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><%= f.button(value="submit",:type=>"submit")%></div></div></li>
+
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">cancel</button></div></div></li>
+			</ul>
+		</div>
+		<% end %>
+	
+	
+</div>
+
+
+
+

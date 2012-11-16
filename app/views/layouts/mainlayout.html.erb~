@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matrix</title>
+<!--  <%= stylesheet_link_tag    "all", :media => "all" %>
+  <%= javascript_include_tag "all" %>
+  <%= csrf_meta_tags %>
+-->
+
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag    "style", :media => "screen" %>
+<%= stylesheet_link_tag    "core", :media => "screen" %>
+<%= stylesheet_link_tag    "print", :media => "print" %>
+	<!--[if IE]>
+		<%= stylesheet_link_tag    "ieHack", :media => "screen" %>
+	<![endif]-->
+ <%= javascript_include_tag "speedup" %>
+ <%= javascript_include_tag "code" %>
+ <%= javascript_include_tag "jquery-1.4.3" %>
+ <%= javascript_include_tag "jquery-1.7.1.js" %>
+ <%= javascript_include_tag "jquery.cookie.js" %>
+ <%= javascript_include_tag "jquery.validate.js" %>
+ <%= javascript_include_tag "jquery.bgiframe.js" %>
+ <%= javascript_include_tag "dwz.core" %>
+ <%= javascript_include_tag "dwz.util.date" %>
+ <%= javascript_include_tag "dwz.validate.method" %>
+ <%= javascript_include_tag "dwz.regional.zh" %>
+ <%= javascript_include_tag "dwz.barDrag" %>
+ <%= javascript_include_tag "dwz.drag" %>
+ <%= javascript_include_tag "dwz.tree" %>
+ <%= javascript_include_tag "dwz.accordion" %>
+ <%= javascript_include_tag "dwz.ui" %>
+ <%= javascript_include_tag "dwz.theme" %>
+ <%= javascript_include_tag "dwz.switchEnv" %>
+ <%= javascript_include_tag "dwz.alertMsg" %>
+ <%= javascript_include_tag "dwz.contextmenu" %>
+ <%= javascript_include_tag "dwz.navTab" %>
+	
+ <%= javascript_include_tag "dwz.tab" %>
+ <%= javascript_include_tag "dwz.resize" %>
+ <%= javascript_include_tag "dwz.dialog" %>
+ <%= javascript_include_tag "dwz.dialogDrag" %>
+ <%= javascript_include_tag "dwz.sortDrag" %>
+ <%= javascript_include_tag "dwz.cssTable" %>
+ <%= javascript_include_tag "dwz.stable" %>
+ <%= javascript_include_tag "dwz.taskBar" %>
+ <%= javascript_include_tag "dwz.ajax" %>
+
+ <%= javascript_include_tag "dwz.pagination" %>
+ <%= javascript_include_tag "dwz.database" %>
+ <%= javascript_include_tag "dwz.datepicker" %>
+ <%= javascript_include_tag "dwz.effects" %>
+ <%= javascript_include_tag "dwz.panel" %>
+ <%= javascript_include_tag "dwz.checkbox" %>
+ <%= javascript_include_tag "dwz.history" %>
+ <%= javascript_include_tag "dwz.combox" %>
+ <%= javascript_include_tag "dwz.print" %>
+
+<!--
+<%= javascript_include_tag "dwz.min" %>
+-->
+<%= javascript_include_tag "dwz.regional.zh" %>
+
+<script type="text/javascript">
+$(function(){
+	DWZ.init("/assets/dwz.frag.xml", {
+		loginUrl:"login_dialog.html", loginTitle:"登录",	// 弹出登录对话框
+	//		loginUrl:"login.html",	// 跳到登录页面
+		statusCode:{ok:200, error:300, timeout:301}, //【可选】
+		pageInfo:{pageNum:"pageNum", numPerPage:"numPerPage", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
+		debug:false,	// 调试模式 【true|false】
+		callback:function(){
+			initEnv();
+			$("#themeList").theme({themeBase:"themes"}); // themeBase 相对于index页面的主题base路径
+		}
+	});
+});
+</script>
+</head>
+<body >
+		
+<%= yield %>			
+</body>
+</html>

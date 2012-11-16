@@ -1,0 +1,33 @@
+<h1>Listing values</h1>
+
+<table>
+  <tr>
+    <th>Value</th>
+    <th>Weight</th>
+    <th>Parameter</th>
+    <th>Is default</th>
+    <th>Status</th>
+    
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @values.each do |value| %>
+  <tr>
+    <td><%= value.value %></td>
+    <td><%= value.weight %></td>
+    <td><%= value.parameter_id %></td>
+    <td><%= value.is_default %></td>
+    <td><%= value.status %></td>
+    
+    <td><%= link_to 'Show', value %></td>
+    <td><%= link_to 'Edit', edit_value_path(value) %></td>
+    <td><%= link_to 'Destroy', value, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+

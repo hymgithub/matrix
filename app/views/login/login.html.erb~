@@ -1,0 +1,81 @@
+    <style type="text/css">
+        .nongfuit
+        {
+            width: 700px;
+            margin: 50px auto;
+            font-size: 13px;
+            line-height: 25px;
+        }
+        .nongfuit .b1
+        {
+            background: #96C2F1;
+            display: block;
+            font-size: 1px;
+            height: 1px;
+            margin: 0 5px;
+            overflow: hidden;
+        }
+        .nongfuit .b2
+        {
+            background: #E2EAF8;
+            border-left: 2px solid #96C2F1;
+            border-right: 2px solid #96C2F1;
+            display: block;
+            font-size: 1px;
+            height: 1px;
+            margin: 0 3px;
+            overflow: hidden;
+        }
+        .nongfuit .b3
+        {
+            background: #E2EAF8;
+            border-left: 1px solid #96C2F1;
+            border-right: 1px solid #96C2F1;
+            display: block;
+            font-size: 1px;
+            height: 1px;
+            margin: 0 2px;
+            overflow: hidden;
+        }
+        .nongfuit .b4
+        {
+            background: #E2EAF8;
+            border-left: 1px solid #96C2F1;
+            border-right: 1px solid #96C2F1;
+            display: block;
+            font-size: 1px;
+            height: 2px;
+            margin: 0 1px;
+            overflow: hidden;
+        }
+        .nongfuit h1
+        {
+            background: #E2EAF8;
+            padding: 5px 10px;
+            font-size: 13px;
+            margin: 0;
+            color: #444;
+            border-left: 1px solid #96C2F1;
+            border-right: 1px solid #96C2F1;
+        }
+        .contents
+        {
+            border-left: 1px solid #96C2F1;
+            border-right: 1px solid #96C2F1;
+            padding: 10px;
+        }
+    </style>
+
+    <div class="nongfuit">
+        <b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>
+        <h1 style="text-align: center;">
+            Matrix Tool</h1>
+        <div class="contents">
+            &nbsp;&nbsp; Matrix Tool
+            <br />
+            &nbsp;&nbsp; 本软件所有权归Adobe公司所有，任何人不得复制或用于商业目的！特此声明，软件使用手册详见Adobe官网。
+            
+        </div>
+        <b class="b4"></b><b class="b3"></b><b class="b2"></b><b class="b1"></b>
+    </div>
+

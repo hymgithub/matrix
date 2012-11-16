@@ -1,0 +1,36 @@
+<h1>用户列表</h1>
+
+<table>
+  <tr>
+    <th>用户名</th>
+    <th>密码</th>
+    <th>是否禁用</th>
+    <th>增加Matrix组</th>
+    <th>查看用户的Matrix组</th>
+    <th>查看</th>
+    <th>修改</th>
+    <th>删除</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td align="center" width="15%"><%= user.name %></td>
+    <td align="center" width="15%"><%= user.password %></td>
+    <td align="center" width="10%"><%= user.status %></td>
+
+<td align="center" width="15%"><%= link_to '增加组',new_group_path(:user_id=>user) %></td>
+    
+<td align="center" width="15%">
+<%= link_to '查看组列表',groups_path(:user_id =>user)%>
+</td>
+
+    <td align="center" width="10%"><%= link_to 'Show', user %></td>
+    <td align="center" width="10%"><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td align="center" width="10%"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>

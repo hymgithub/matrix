@@ -1,0 +1,31 @@
+<h1>matrix_values 列表</h1>
+
+<table >
+  <tr>
+    <th>所属Matrix param的编号</th>
+    <th>值</th>
+    <th>权重</th>
+    <th>是否选择</th>
+    <th>状态</th>
+    <th>查看</th>
+    <th>编辑</th>
+    <th>删除</th>
+  </tr>
+
+<% @matrix_values.each do |matrix_value| %>
+  <tr>
+    <td align="center" width="10%"><%= matrix_value.matrix_param.parameter.name %></td>
+    <td align="center" width="10%"><%= matrix_value.value.value %></td>
+    <td align="center" width="10%"><%= matrix_value.weight %></td>
+    <td align="center" width="10%"><%= matrix_value.is_chosen %></td>
+    <td align="center" width="10%"><%= matrix_value.status %></td>
+    <td align="center" width="10%"><%= link_to 'Show', matrix_value %></td>
+    <td align="center" width="10%"><%= link_to 'Edit', edit_matrix_value_path(matrix_value) %></td>
+    <td align="center" width="10%"><%= link_to 'Destroy', matrix_value, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Matrix value', new_matrix_value_path(:matrix_param_id=>@matrix_param.id) %>

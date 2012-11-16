@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Matrix Tool- Adobe</title>
+<%= stylesheet_link_tag    "application", :media => "all" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+<script type="text/javascript">
+	$(document).ready(function() 
+    	{ 
+      	  $(".tablesorter").tablesorter(); 
+   	 } 
+	);
+	$(document).ready(function() {
+
+	//When page loads...
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+
+	//On Click Event
+	$("ul.tabs li").click(function() {
+
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+
+});
+    </script>
+    <script type="text/javascript">
+    $(function(){
+        $('.column').equalHeight();
+    });
+</script>
+
+</head>
+<body class="showmenu">
+<div class="pagemask"></div>
+<iframe class="iframemask"></iframe>
+<div class="head">
+<div class="top_logo"> <%=image_tag "logo.gif",:size => "127x50"%></div>
+    <div class="top_link">
+      <ul>
+<!--	<li class="welcome">Welcome yquan!&nbsp;</li>-->
+<li class="menuact"><%= link_to 'add a group', new_group_path(:user_id=>@user),{:target=>'main'} %> </li>
+	<li class="menuact"><a href="#" id="togglemenu">Hiden menu</a></li>         
+	<li><a href="exit.htm" target="_top">exit</a></li>		
+      </ul>     
+    </div>
+
+    <div class="nav" id="nav">
+      <ul>
+              <li><a class="thisclass" href="groups?user_id=1" _for="common" target="_self">Input</a></li>
+              <li><a href="<%=algorithm_index_path%>?matrix_config_id=1" _for="content" target="main">Generate</a></li>
+              <li><a href="readme.htm" _for="member" target="main">Analyze</a></li>
+              <li><a href="readme.htm" _for="system" target="main">Setting</a></li>
+      </ul>
+    </div>
+</div><!-- header end -->
+
+<div class="left">
+	<%= yield :group_list %>  
+</div><!-- left end -->
+
+<div class="right">
+  <div class="main">
+    <iframe id="main" name="main" frameborder="0" src="login/login.html"><%= yield %></iframe>
+  </div>
+</div><!-- right end -->
+
+
+</body>
+</html>
+

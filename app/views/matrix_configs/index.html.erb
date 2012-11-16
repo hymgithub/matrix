@@ -1,0 +1,34 @@
+<h1>Matrix 列表</h1>
+
+<table>
+  <tr>
+    <th>matrix 名称</th>
+    <th>组名</th>
+    <th>对应项目版本</th>
+    <th>状态</th>
+    <th>增加参数</th>
+    <th>参数列表</th>
+    <th>查看</th>
+    <th>修改</th>
+    <th>删除</th>
+
+  </tr>
+
+<% @matrix_configs.each do |matrix_config| %>
+  <tr>
+    <td align="center" width="15%"><%= matrix_config.name %></td>
+    <td align="center" width="10%"><%= matrix_config.group.name %></td>
+    <td align="center" width="10%"><%= matrix_config.version_id %></td>
+    <td align="center" width="10%"><%= matrix_config.status %></td>
+    <td align="center" width="15%"><%= link_to '向该Matrix增加新参数',new_matrix_param_path(:matrix_config_id=>matrix_config) %></td>    
+    <td align="center" width="10%"><%= link_to '查看Matrix具体结构',matrix_params_path(:matrix_config_id =>matrix_config)%></td>
+    <td align="center" width="10%"><%= link_to 'Show', matrix_config %></td>
+    <td align="center" width="10%"><%= link_to 'Edit', edit_matrix_config_path(matrix_config) %></td>
+    <td align="center" width="10%"><%= link_to 'Destroy', matrix_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '创建新Matrix', new_matrix_config_path(:group_id=>@group.id) %>

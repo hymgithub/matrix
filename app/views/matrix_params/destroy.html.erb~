@@ -1,0 +1,17 @@
+<div class="pageContent">
+<form id="delete" class="pageForm" target="navTab" title="warn" rel="del"  method="get" action="/algorithm/calculation" onsubmit="return navTabSearch(this);" >   
+
+		<div class="pageFormContent" layoutH="50">
+                               Are you sure to delete?
+
+			
+			
+		</div>
+		<div class="formBar">
+		 <ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <button type="submit">Calculate</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+		 </ul>
+	</div>
+	
+</div>

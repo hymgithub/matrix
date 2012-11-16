@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @parameter.name %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%= @parameter.weight %>
+</p>
+
+<p>
+  <b>Is default:</b>
+  <%= @parameter.is_default %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @parameter.status %>
+</p>
+<%@parameter.values.each do |value|%>
+<h2>Values</h2>
+  <div class="field">
+    <b>Value</b>
+    <%= value.value %>
+  </div>
+  <div class="field">
+<b>weight</b>
+<%=value.weight%>
+  </div>
+  <div class="field">
+<b>parameter_id</b>
+<%=value.parameter_id%>
+  </div>
+  <div class="field">
+<b>is_default</b>
+<%=value.is_default%>
+  </div>
+  <div class="field">
+<b>status</b>
+<%=value.status%>
+  </div>
+<%= link_to 'Edit value', edit_value_path(value) %> 
+<%end%>
+
+
+
+
+
+<h2>Add value</h2>
+<%= form_for([@parameter,@parameter.values.build]) do |f| %>
+  
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br />
+    <%= f.text_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :parameter_id %><br />
+    <%= f.number_field :parameter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :is_default %><br />
+    <%= f.check_box :is_default %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status %>
+  </div>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_parameter_path(@parameter) %> |
+<%= link_to 'Back', parameters_path %>

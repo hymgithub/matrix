@@ -1,0 +1,68 @@
+<div class ="pageContent">
+	<form action="matrix_params/getStr" target ="hidden_frame" enctype="multipart/form-data" method ="post" >
+		<div>
+			<label>Import parameters from file:</label>
+			<input type ="file" name ="file"/>
+			<button type="submit">Import</button>
+		</div>
+       </form>
+ 
+
+	<div class="form">
+	<form id="import" class="pageForm" target="dialog" method="post"  action="matrix_params/importParams" enctype="multipart/form-data"  onsubmit="return navTabSearch(this);" >  
+	     <div class="pageFormContent" layoutH="80">		
+		<div class ="unit">
+                        <input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=@matrix_config.id  %>"/>
+			<label>Input json string:</label>
+			<input name="jsonstring" class="textInput" size ="40x60"/> 
+		<!--	<textarea name="jsonstring" />    -->
+		</div>
+
+		<!--
+		<div class ="unit">
+			<label> Upload source file:</label>
+			<input type="file" name ="file"/>
+		</div>  -->
+
+		
+		<iframe name ="jsonStr" style="display:none">
+			<input type="text" name="tmpvalue" value="abc" onchange="document.getElementById('str').value = this.value;">
+		</iframe>
+		<input type="hidden" name = "str" id="str"/>
+			
+
+		
+	     </div>
+	     <div class="formBar">
+		 <ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <button type="submit">Import</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+		 </ul>
+	     </div>
+	</form>
+	</div>
+
+      
+
+<!--
+<%#= form_for (@matrix_config, :action => "importparams", :html =>{ :class =>"pageForm", :target =>"dialog", :onsubmit=>"return navTabSearch(this);"} ) do |f| %>
+	<div class="pageFormContent" layoutH="50">
+		<%#= f.hidden_field @matrix_config.id, :size =>"20", :class =>"required" %>
+		<div class ="unit">
+			<label>Please input the json string:</label>
+			<input name="jsonstring" class="text" size ="40"/>
+
+		</div>
+		<div class ="unit">
+
+
+		</div>
+	</div>
+
+<%# end %>
+-->
+
+
+
+
+</div>

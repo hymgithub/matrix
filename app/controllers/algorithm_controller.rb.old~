@@ -1,0 +1,1411 @@
+class Element
+     @value
+     @times 
+     @weight
+     def initialize value,times
+	@value = value
+	@times = times
+	@weight = 0
+     end
+     def value
+	@value
+     end
+
+     def times
+	@times
+     end
+	
+     def addTimes
+	@times+=1
+     end
+     def minusTimes
+       @times -=1
+     end
+     def weight 
+	@weight
+     end
+     def setweight weight
+	@weight = weight
+     end
+end
+
+class BParameter
+     @paramname
+     @elementsArr
+     def initialize paramname
+	@paramname = paramname
+        @elementsArr = Array.new
+     end
+
+     def paramname 
+	@paramname
+     end
+
+     def addElement element
+      @elementsArr << element
+     end
+
+     def elementsArr
+      @elementsArr
+     end	     
+end
+
+class BParameters
+    @paramsArr 
+    def initialize 
+    @paramsArr = Array.new
+    end
+    def paramsArr
+    @paramsArr
+    end
+
+    def addParam  param
+	@paramsArr << param
+    end
+
+end
+
+class Pair
+     @firstValue
+     @secondValue
+     @isVisited
+     def initialize firstvalue,secondvalue
+         @firstValue = firstvalue
+	 @secondValue = secondvalue
+         @isVisited = false
+     end
+     
+     def firstValue 
+	@firstValue
+     end
+     def secondValue
+	@secondValue
+     end
+     def isVisited
+	@isVisited
+     end
+   
+     def setIsVisited
+	@isVisited = true
+     end
+     def setDisable
+      @isVisited = "disabled"
+     end
+end
+
+class Pairs
+     @firstParam
+     @secondParam
+     @pairsArr
+     def initialize firstparam,secondparam
+	@firstParam = firstparam
+ 	@secondParam = secondparam
+	@pairsArr = Array.new
+     end
+     def addPair pair
+	@pairsArr << pair
+     end
+     def firstParam
+	@firstParam
+     end
+     def secondParam
+	@secondParam
+     end
+     def pairsArr
+	@pairsArr
+     end
+end
+
+class Record
+   @valuesArr
+   def initialize 
+    @valuesArr = Array.new
+   end  
+   def setValue index,value
+    @valuesArr[index] = value 
+   end
+   def valuesArr
+   @valuesArr
+   end
+   
+end
+
+class Records
+   @recordsArr
+   def initialize 
+   @recordsArr = Array.new
+   end
+   def addRecord record
+   @recordsArr << record
+   end
+   def recordsArr
+   @recordsArr
+   end
+
+   
+end
+class Manager 
+     @parameters #参数
+     @pairs   #产生到pairs 同时也是UC
+     @records #存放最终结果 
+     @ucrecords #存放原始的迪卡尔积结果     
+     @maxparam 
+     @maxelement
+     @maxloopnum  #max loop num used for generateNumCase and getMostCover
+     @haslimit 
+     @limitvaluesArr #new add
+     @useweight #if have same occur numbers,whether use their weight to select #add by chuangye 
+     @counterIndex 
+     @counter
+     
+
+
+     @musthavelimit # must have limit foreaxmple  a b  must have
+     @musthavevaluesArr
+    
+     def initialize
+	@parameters = BParameters.new
+        @pairs = Array.new
+        @records = Records.new
+        @maxparam = 0
+	@maxelement = 0
+        @limitvaluesArr = Array.new
+        @maxloopnum = 50
+        @useweight=0
+        @counter = Array.new(100,0)
+	@counterIndex = @parameters.paramsArr.length
+	@ucrecords = Records.new
+     end
+     def parameters
+	@parameters
+     end
+     def pairs
+	@pairs
+     end
+     def records
+	@records
+     end
+     def ucrecords
+        @ucrecords
+     end
+      
+     def records
+        @records
+     end
+
+     def haslimit
+        @haslimit
+     end
+     def limitvaluesArr
+      @limitvaluesArr
+     end
+     def sethaslimit haslimit
+      @haslimit = haslimit
+     end 
+     def setlimitvaluesArr limitvaluesArr
+      @limitvaluesArr = limitvaluesArr
+     end
+
+     def musthavelimit
+      @musthavelimit
+     end
+
+     def musthavevaluesArr
+      @musthavevaluesArr
+     end
+    
+
+     #input the parameters 
+     #function_inputParameters start
+     #the number of parameters
+     def inputParameters  paramsnum  
+
+
+      #input parameters      
+	
+
+       	
+      #input must not have limit info
+      puts "has (must not have type)  limit? please input 0 or 1(0 means no limit,1 means has limit)"
+      haslimit = gets
+      if haslimit.to_i == 1
+        @haslimit = true
+         puts "please input the group num of limitValue"
+         gnum = gets
+         inputMustNotHaveLimitValues gnum.to_i
+      else
+        @haslimit = false
+      end
+
+
+      #input must have limit info
+=begin      puts "has (must  have type)  limit? please input 0 or 1(0 means no limit,1 means has limit)"
+      musthavelimit = gets
+      if musthavelimit.to_i == 1
+        @musthavelimit = true
+         puts "please input the group num of limitValue"
+         gnum = gets
+         inputMustHaveLimitValues gnum.to_i
+      else
+        @musthavelimit = false
+      end
+=end
+      
+
+     end
+     #function_inputParameters end
+
+     def inputMustNotHaveLimitValues limitgroupnum
+
+        #new add limit start
+      
+      if @haslimit # if has limit then input the values of limit ,and store these value to @limitvaluesArr
+       
+        gindex = 0 
+        while gindex < limitgroupnum do
+            puts "please input the index A parameters and B parameters "
+            aindex = gets
+            bindex = gets
+            puts "please input the num of limitValues "     
+            limitnum = gets
+            
+            lindex = 0
+            tempairs = Pairs.new aindex.to_i,bindex.to_i
+                while lindex < limitnum.to_i do
+                  puts "input the value of limit A"
+                  avalue = gets 
+                  puts "input the value of limit B"
+                  bvalue = gets           
+                  pair = Pair.new avalue,bvalue
+                  tempairs.pairsArr << pair
+                  lindex += 1
+                  puts lindex
+                end              
+            @limitvaluesArr << tempairs
+            gindex+=1
+        end
+      end
+       #new add limit end   
+
+
+     end
+
+
+
+    
+
+    def inputMustHaveLimitValues limitgroupnum
+
+        #new add limit start
+      
+      if @musthavelimit # if has limit then input the values of limit ,and store these value to @limitvaluesArr
+       
+      #input the limit values (not implement)
+      end
+       #new add limit end   
+
+
+     end
+
+
+
+     #function_generatePairs start
+     #generate pais
+     def generatePairs
+        for i in 0...@parameters.paramsArr.length-1 do  
+           for j in i+1 ...@parameters.paramsArr.length do
+               tmppairs = Pairs.new i,j
+               for k in 0...@parameters.paramsArr[i].elementsArr.length do
+                  for h in 0...@parameters.paramsArr[j].elementsArr.length do                   
+                      tmppair = Pair.new k,h                                  #there we store the index of value but not the true value
+                      @parameters.paramsArr[i].elementsArr[k].addTimes
+                      @parameters.paramsArr[j].elementsArr[h].addTimes
+                      tmppairs.addPair tmppair                              #temppairs just like ABpairs  not all AB AC BC
+                    
+                   end
+               end
+              @pairs << tmppairs                                             #@pairs is all the pairs  like AB AC BC 
+          end
+      end
+
+      #if  has limit then  update the pairs with limit conditions
+      if @haslimit
+      	puts  "update pairs with limit...."
+        updatePairsWithLimit
+      end
+   end
+
+   #output the parameters 
+=begin   def generateparameter
+       for i in 0...@parameters.paramsArr.length do
+              print @parameters.paramsArr[i].paramname
+           for j in 0...@parameters.paramsArr[i].elementsArr.length do
+            print @parameters.paramsArr[i].elementsArr[j].value
+            print @parameters.paramsArr[i].elementsArr[j].times
+           end
+       end
+   end
+=end
+
+
+
+     #function_getMostOccur start  	 
+     # get the index of parameter and its value index of has max times 
+     def getMostOccur 
+       tmpArry=[]
+       tmpWArry=[];
+	     @maxparam =0 #use for store the param
+       @maxelement =0 #use for store the element
+		    i=0
+        while i<@parameters.paramsArr.length do
+      	    temelementslength = @parameters.paramsArr[i].elementsArr.length	
+      	    j=0
+            while j < temelementslength do		
+                    if @parameters.paramsArr[i].elementsArr[j].times == @parameters.paramsArr[@maxparam].elementsArr[@maxelement].times
+                           
+                           tmpArry << [i , j]
+                   elsif @parameters.paramsArr[i].elementsArr[j].times > @parameters.paramsArr[@maxparam].elementsArr[@maxelement].times
+                           tmpArry.clear
+                           tmpArry << [i , j]
+		                  	   @maxparam = i 
+                           @maxelement = j
+                     end	  
+              j+=1
+            end
+            i+=1
+        end
+       #add by chuangye -----------------------------start
+       if @useweight==1
+          maxweight=@parameters.paramsArr[tmpArry[0][0]].elementsArr[tmpArry[0][1]].weight
+          for k in 0...tmpArry.length do
+                if @parameters.paramsArr[tmpArry[k][0]].elementsArr[tmpArry[k][1]].weight==maxweight
+                    tmpWArry << tmpArry[k]
+                elsif @parameters.paramsArr[tmpArry[k][0]].elementsArr[tmpArry[k][1]].weight>maxweight
+                     tmpWArry.clear
+                     tmpWArry << tmpArry[k]
+                end
+          end
+        tmp=randchar(0,tmpWArry.length-1)
+        @maxparam = tmpWArry[tmp][0]
+        @maxelement = tmpWArry[tmp][1]
+       else
+       #add by chuangye -----------------------------end
+       tmp = randchar(0 , tmpArry.length-1)
+       @maxparam = tmpArry[tmp][0]
+       @maxelement = tmpArry[tmp][1]
+     end
+   end
+     #function_getMostOccur end
+
+
+     #function_generateSequence start
+     #generate the sequence	
+     def generateSequence 
+		sequenceArr = Array.new  # new the length of parameters array and the 0 is used for record
+	        sequenceArr[0]  = @maxparam
+	       	temparameterlen = @parameters.paramsArr.length 
+      		#because the firsrameters.paramsArr[i].paramname
+      		#temparameter is the maxparameter so  we just generate the rest parameters' sequence 
+		      index = 1
+      		while index < temparameterlen do
+      			#generate the randnum
+      		  #	chars = (0..temparameterlen-1).to_a
+            #	temrandnum = chars[rand(chars.size)]
+      		  temrandnum = randchar(0,temparameterlen-1)
+      			if temrandnum != @maxparam 	 
+      				j = 1
+      				isexist = false
+        				while j < index   #check whether the temrandnum is already generated
+          					if sequenceArr[j]==temrandnum
+          					  isexist = true
+                      break
+          					end        					
+        					j+=1
+        				end
+        				if !isexist 
+        					  sequenceArr[index] = temrandnum
+        						index +=1      					
+        				end	
+      			end
+      		end	
+		      return sequenceArr         
+     end
+     #function_generateSequence end
+	
+
+
+     #function_generateCase start
+     def generateCase
+	record = Record.new
+        record.valuesArr[@maxparam]=@maxelement
+	      sequenceArr = generateSequence
+	      i = 1
+        tmpArry=[]
+		flag = 1
+      	while (i < @parameters.paramsArr.length ) do
+            	   paramindex = sequenceArr[i]
+                 tmpArry = setNumFromPairs record,sequenceArr,i  # set the num of sequenceArr setMaxnumFromPairs is a function and sequenceArr, i are parameters
+				 
+                 maxelementindex= getMaxNum paramindex ,tmpArry
+				 if maxelementindex != -1				 
+                 record.valuesArr[paramindex] = maxelementindex 
+				 elsif maxelementindex ==-1
+				 flag = 0
+				 end
+      	         i+=1
+      	end
+        if flag==0
+			return -1
+		elsif flag==1
+		   return record
+		end         
+     end
+     #function_generateCase end     
+     
+     #function_setMaxnumFromParis used in generateCase function
+     def setNumFromPairs record, sequenceArr,index
+       paramindex=sequenceArr[index]
+       tmpArry = []
+       num =0
+       tag = 1
+       flag=1
+       for i in 0...@parameters.paramsArr[paramindex].elementsArr.length do
+		   flag=1
+          for j in 0...index do
+              tag =1
+              for k in 0...@pairs.length do #for k do start
+                    if @pairs[k].secondParam == paramindex and @pairs[k].firstParam == sequenceArr[j] ####if start
+                         for h in 0...@pairs[k].pairsArr.length do #for h do start
+                                if @pairs[k].pairsArr[h].secondValue == i and @pairs[k].pairsArr[h].firstValue ==record.valuesArr[sequenceArr[j]] and @pairs[k].pairsArr[h].isVisited == false
+                                         num+=1 
+                                         tag=0
+                                         break   #break for h
+                                elsif @pairs[k].pairsArr[h].secondValue ==i and @pairs[k].pairsArr[h].firstValue == record.valuesArr[sequenceArr[j]] and @pairs[k].pairsArr[h].isVisited == 'disabled'
+                                         flag=0
+                                         break  #break for h
+                                end       
+                         end  #for h do end
+                   elsif @pairs[k].firstParam == paramindex and @pairs[k].secondParam == sequenceArr[j] ####ifels
+                        for h in 0...@pairs[k].pairsArr.length do ##for h do start                       
+                            if @pairs[k].pairsArr[h].firstValue == i and @pairs[k].pairsArr[h].secondValue ==record.valuesArr[sequenceArr[j]] and @pairs[k].pairsArr[h].isVisited == false                              
+                                              num+=1
+                                              tag=0
+                                              break  #break for h
+                           elsif @pairs[k].pairsArr[h].firstValue ==i and @pairs[k].pairsArr[h].secondValue ==record.valuesArr[sequenceArr[j]] and @pairs[k].pairsArr[h].isVisited == 'disabled'
+                                            flag=0
+                                            break   #break for h
+                           end
+                        end ##for h do end
+                     if tag == 0 or flag ==0
+                         break  #break for k
+                     end
+                   end ####if end                
+              end #for k do end
+             if flag ==0
+                break  #break for j
+            end
+        end
+        if flag ==1
+           tmpArry << [i , num]
+        end
+        num=0
+      end
+    return tmpArry
+   end
+     #function_setMaxnumFromParis
+     
+
+    #function_getMaxNum begin used in generateCase function
+    def getMaxNum paramindex,tmpArry
+        maxtag = 0
+        maxnum = 0
+        tmpWArry=[]
+        tmp=Array.new
+        for i in 0 ...tmpArry.length do
+             if tmpArry[i][1] == maxnum
+                tmp << tmpArry[i][0]
+             elsif tmpArry[i][1] > maxnum
+                 maxtag = tmpArry[i][0]
+                 maxnum = tmpArry[i][1]
+                 tmp.clear
+                 tmp << maxtag
+            end       
+        end
+
+      if tmp.length ==0
+	return 0
+     else
+        #add by chuangye --------------------------start
+        if @useweight==1
+           maxweigth=@parameters.paramsArr[paramindex].elementsArr[tmp[0]].weight
+           for j in 0...tmp.length do
+              if @parameters.paramsArr[paramindex].elementsArr[tmp[j]].weight==maxweigth
+                 tmpWArry << tmp[j]
+              elsif @parameters.paramsArr[paramindex].elementsArr[tmp[j]].weight>maxweigth
+                 tmpWArry.clear
+                 tmpWArry << tmp[j]
+              end
+           
+          end
+         return tmpWArry[randchar(0,tmpWArry.length-1)]
+        else
+       #add by chuangye ----------------------------end
+         return tmp[randchar(0,tmp.length-1)]
+	end
+
+    #  return tmp[randchar(0,tmp.length-1)]
+   end
+ end
+    # function_getMaxNum end
+    	
+
+
+   #functon_generateNumCases start
+   # generate all the cases without restrict
+     def generateNumCases  
+      time1 = Time.now # used for test
+      time11 = Time.new # used for test
+      puts time1# used for test
+
+	   while !isEmptyOfUC do
+          tmprecords=Records.new           #new a Record used for store the results
+          getMostOccur                     #get the most occur store in @maxparam and @maxelement
+           for i in 0...@maxloopnum do              #generate @maxloopnum records and later will random select one
+
+            
+
+            recorde = generateCase
+            if(recorde !=-1)
+                tmprecords.recordsArr << recorde
+            end
+           end
+          flag = getMostCover tmprecords
+          @records.recordsArr << tmprecords.recordsArr[flag]
+          updateUC  tmprecords.recordsArr[flag]
+          tmprecords.recordsArr.clear
+      end
+      
+      puts 'list:'
+      outputcase 
+      print'total number:'
+      puts @records.recordsArr.length
+
+      puts "start time"  #design for test start
+      puts time11
+      time22 = Time.new
+      puts "end time"
+      puts time22
+      time2 = Time.now
+      puts time2-time1    #design for test end
+      @usetime = time2-time1
+     end
+      #function_generateNumCases end
+   
+
+
+   #functon_getMostCover start
+   def getMostCover records
+     numset = []
+     num = 0
+     wArry=[];
+     for i in 0...@maxloopnum do
+        for j in 0...@parameters.paramsArr.length do
+           for k in j+1 ...@parameters.paramsArr.length do
+              for n in 0...@pairs.length do
+                 if @pairs[n].firstParam ==j and @pairs[n].secondParam ==k
+                    for m in 0...@pairs[n].pairsArr.length do
+               if records.recordsArr[i].valuesArr[j] == @pairs[n].pairsArr[m].firstValue and records.recordsArr[i].valuesArr[k] ==@pairs[n].pairsArr[m].secondValue and @pairs[n].pairsArr[m].isVisited== false
+                               num+=1
+                               
+               end
+                    end
+                 end
+              end
+           end
+        end
+      numset << num
+      num =0
+     end
+     maxtag=0
+     maxnum=0
+     max = Array.new
+     for i in 0...@maxloopnum do
+         if numset[i] == maxnum
+            max << i        
+         elsif numset[i] > maxnum
+            maxnum = numset[i]
+            max.clear
+            max << i
+        end      
+     end
+     #addb by chuangye ----------------------start
+   if @useweight==1
+     for h in 0...max.length do
+        weight=0
+        for p in 0...@parameters.paramsArr.length do
+            pos=records.recordsArr[max[h]].valuesArr[p]
+           weight+=@parameters.paramsArr[p].elementsArr[pos].weight
+             
+        end
+        wArry << [max[h],weight]
+     end
+     maxweight=wArry[0][1]
+     maxArry=[]
+     for x in 0... wArry.length do
+          if wArry[x][1]==maxweight
+                  maxArry << wArry[x][0]
+          elsif wArry[x][1]==maxweight
+                  maxArry.clear
+                  maxArry << wArry[x][0]
+          end
+ 
+     end
+     tag= randchar(0,maxArry.length-1)
+     return maxArry[tag]
+   else 
+     #add by chuangye ------------------------end
+     tag = randchar(0,max.length-1)
+     return max[tag]
+   end
+  end
+ 
+   #functon_getMostCover end
+
+  #function_supplementaryCase start
+  def supplementaryCase records     #generate the supplementary set for selected records 
+     num=@records.recordsArr[0].valuesArr.length
+     
+     recordset = Records.new
+     tagset = []
+      # add the @records and selected records (just the inputparameter 'records' into the recordset )                                        
+     for i in 0...@records.recordsArr.length do          #add the @records to recordset and set tagset=1
+             recordset.recordsArr <<  @records.recordsArr[i]
+             tagset << 1
+     end
+     for j in 0...records.recordsArr.length do            #add the records to recordset and set tagset=0
+            recordset.recordsArr <<  records.recordsArr[j]
+            tagset << 0
+     end
+
+    sum  = @parameters.paramsArr.length*(@parameters.paramsArr.length-1)/2
+    print 'sum='
+    puts sum
+
+
+
+    for i in 0...recordset.recordsArr.length do
+       isexist=0
+      for h in 0...@parameters.paramsArr.length do
+        for k in h+1 ...@parameters.paramsArr.length do
+          for j in i+1 ...recordset.recordsArr.length do
+            if recordset.recordsArr[i].valuesArr[h]== recordset.recordsArr[j].valuesArr[h] and recordset.recordsArr[i].valuesArr[k] == recordset.recordsArr[j].valuesArr[k]
+                isexist+=1       
+            end
+          end
+        end
+      end
+      if isexist >=sum
+         tagset[i]=0
+      end 
+    end
+      result = Records.new
+     for m in 0...tagset.length do
+        if tagset[m]==1
+          result.recordsArr << recordset.recordsArr[m]
+        end
+    end
+    return result
+  end
+ #function_supplementartCase end
+ 
+
+
+ def updatePairsWithLimit
+  if @haslimit
+    limitgroupnum = @limitvaluesArr.length          #limitvaluesArr length 
+    lgindex = 0
+    while lgindex < limitgroupnum do               #for each limitvalue  do
+      pairs = @limitvaluesArr[lgindex]             #limit pairs
+      firstParam = pairs.firstParam                #limit pairs firstParam
+      secondParam = pairs.secondParam              #limit pairs secondParam
+      limitnum  = pairs.pairsArr.length            #limit pairs's pair length 
+      lindex = 0
+      while lindex < limitnum do                   #foreach pair do 
+        puts "lindex="
+        puts lindex
+        pairsnum = @pairs.length
+        pindex =0
+        while pindex < pairsnum do
+          mpairs = @pairs[pindex]                   
+          
+          if mpairs.firstParam==firstParam&&mpairs.secondParam==secondParam 
+                valuesnum = mpairs.pairsArr.length
+                puts "valuesnum="
+                puts valuesnum
+                i =0
+                while i < valuesnum do
+
+                   
+                     
+                   
+
+
+                      if @parameters.paramsArr[firstParam].elementsArr[mpairs.pairsArr[i].firstValue].value.to_i == pairs.pairsArr[lindex].firstValue.to_i and @parameters.paramsArr[secondParam].elementsArr[mpairs.pairsArr[i].secondValue].value.to_i ==pairs.pairsArr[lindex].secondValue.to_i
+                      @pairs[pindex].pairsArr[i].setDisable   
+                   
+
+
+
+                      end 
+                i+=1
+                end
+
+          end
+          pindex+=1
+        end
+
+        lindex+=1
+      end
+      lgindex+=1
+    end
+
+  end
+
+
+
+
+ end
+
+
+#function_musthaveParams start
+def musthaveParams 
+  
+end
+#functon_musthaveParams end
+ 
+ 
+ 
+ #function_checkLimit start
+      def checkMustHaveNotLimit record
+        isfitted = false
+          if @haslimit 
+          limitnum = @limitvaluesArr.length
+          i = 0
+            while i < limitnum do
+              tempairs  = @limitvaluesArr[i]
+              firstParam = tempairs.firstParam
+              secondParam = tempairs.secondParam
+              valueslen = tempairs.pairsArr.length 
+              j = 0
+              while j < valueslen do
+                  if  tempairs.pairsArr[j].firstValue == @parameters.paramsArr[firstParam].elementsArr[ record.valuesArr[firstParam] ]&&tempairs.pairsArr[j].secondValue==@parameters.paramsArr[secondParam].elementsArr[record.valuesArr[secondParam]]
+
+                     isfitted = true 
+                     break;
+                  end                    
+                    j +=1
+              end
+
+              i+=1
+            end
+          else
+            isfitted = false
+          end
+
+        return isfitted
+
+      end
+#function_checkLimit end
+
+
+
+
+#update the ucpairstable with the record
+#function_updateUC start
+ def updateUC  record
+     for i in 0...record.valuesArr.length do
+        for j in i+1...record.valuesArr.length do
+           for k in 0...@pairs.length do
+               if @pairs[k].firstParam == i and @pairs[k].secondParam == j
+                  for h in 0...@pairs[k].pairsArr.length do
+                     if @pairs[k].pairsArr[h].firstValue == record.valuesArr[i] and @pairs[k].pairsArr[h].secondValue == record.valuesArr[j]
+                        @parameters.paramsArr[i].elementsArr[record.valuesArr[i]].minusTimes
+                        @parameters.paramsArr[j].elementsArr[record.valuesArr[j]].minusTimes
+                        @pairs[k].pairsArr[h].setIsVisited 
+                     end
+                  end
+               end                 
+           end
+        end
+     end
+ end
+#function_updateUC end
+
+
+#function_isEmptyOfUC
+#return whether the UCpairsTable is empty
+  def isEmptyOfUC  
+	      isempty = true
+        for i in 0...@pairs.length do
+             for k in 0...@pairs[i].pairsArr.length do
+               if @pairs[i].pairsArr[k].isVisited == false
+                  isempty = false
+                  return isempty
+               end
+             end
+        end
+  end
+
+#function_isEmptyOfUC
+
+
+   def getResults  #get the not limit Results
+       @records
+   end
+
+   def getResultsWithMustHaveLimit 
+   end
+
+   def getResultsWithMustNotLimit
+   end
+     
+
+
+
+
+
+  #out put the parameters design for test
+  #function_start 
+   def outputParameters
+    	i=0
+  		while i < @parameters.paramsArr.length do
+  			temparameter = @parameters.paramsArr[i]
+  			elementlen = temparameter.elementsArr.length
+        print "parameters name :"
+        puts  @parameters.paramsArr[i].paramname
+  			j=0
+        print "value "
+        print "times "
+  			while j<elementlen.to_i do
+          puts " "
+  				print @parameters.paramsArr[i].elementsArr[j].value
+          print "  "
+          puts @parameters.paramsArr[i].elementsArr[j].times
+  				j+=1
+  			end 
+  			i+=1
+  		end
+   end
+  #function end
+
+
+
+    #function_outputPairs start
+    def outputPairs
+     for i in 0...@pairs.length do
+         print 'canshu:'
+         print @pairs[i].firstParam 
+         print ' '
+         puts @pairs[i].secondParam
+         for j in 0...@pairs[i].pairsArr.length do
+               print @pairs[i].pairsArr[j].firstValue
+               print @pairs[i].pairsArr[j].secondValue
+               puts @pairs[i].pairsArr[j].isVisited
+              
+          end
+      end
+    end
+   #function_outputPairs  end
+
+
+
+    #function_outputcase start
+    def outputcase 
+       for i in 0...@records.recordsArr.length do
+
+           isfit = checkMustHaveNotLimit @records.recordsArr[i]
+                      
+
+                for j in 0...@records.recordsArr[i].valuesArr.length do
+                   print parameters.paramsArr[j].elementsArr[@records.recordsArr[i].valuesArr[j]].value
+                   print ' '
+                 end
+                  puts '    '
+          
+        end
+    end
+  #function _outputcase end 
+
+
+
+  #tools for this class
+  #generate the rand num between first and last
+   def randchar (first,last)	  
+  	chars = (first..last).to_a
+        randchar = chars[rand(chars.size)]
+        return randchar
+   end 
+#add by chuangye start-----------------------------------------------------------------------------------------------
+ def handle
+    @counter[@counterIndex]=@counter[@counterIndex]+1
+    if(@counter[@counterIndex]) >= @parameters.paramsArr[@counterIndex].elementsArr.length
+        @counter[@counterIndex]= 0
+        @counterIndex= @counterIndex-1
+        if(@counterIndex >= 0)
+           puts "%%%%%%%%%%"
+            handle
+            
+        end
+        @counterIndex = @parameters.paramsArr.length-1
+     end
+
+ end
+ def allResult
+     @counterIndex = @parameters.paramsArr.length-1
+     num=1
+     for i in 0...@parameters.paramsArr.length do
+        num=num * @parameters.paramsArr[i].elementsArr.length
+     end
+     for j in 0...num do
+        record =Record.new
+        for k in 0 ...@parameters.paramsArr.length do
+           record.valuesArr[k] = @parameters.paramsArr[k].elementsArr[@counter[k]].value
+           puts "*****"
+           puts record.valuesArr[k]
+         end
+         @ucrecords.recordsArr << record
+         handle
+     end
+ end
+#add by chuangye end--------------------------------------------------------------------------------------------------
+
+end
+
+
+class AlgorithmController < ApplicationController
+
+   
+
+  def index
+	
+ 	@matrix_config = MatrixConfig.find(params[:matrix_config_id])
+	@matrix_params = @matrix_config.matrix_params
+			@costtime
+			
+			paramsnum = @matrix_params.count
+	@width = 100/(paramsnum+2.to_f)
+			@manager = Manager.new
+			starttime = Time.now
+
+	if @matrix_config.has_results==true 
+          Result.destroy_all(["matrix_config_id=?",params[:matrix_config_id]])
+	end		
+			#input parameters	
+			i=0
+			 while i < paramsnum do   
+			       temparameter = BParameter.new (@matrix_params[i].parameter.id)
+				vlen = @matrix_params[i].matrix_values.count
+		
+				for j in 0...vlen.to_i do # input the value for current parameter 
+				       element = Element.new @matrix_params[i].matrix_values[j].value.id,0
+                                       element.setweight @matrix_params[i].matrix_values[j].weight   #add by chuangye-----
+				       temparameter.addElement element
+				      end
+				     @manager.parameters.paramsArr <<  temparameter  #store the temparameter to @parameters
+		  		i+=1
+		  	end
+			#input parameters end
+
+			#input must not have limit contions
+			#set the haslimit 
+			  if @matrix_config.limit_pairs.count > 0
+				@manager.sethaslimit true
+			  else 
+				@manager.sethaslimit false
+			  end
+			 #set the has limit end
+
+			  #set the limit value to function
+			 
+		  	  @matrix_config.limit_pairs.each do |limit_pair|
+				first_value_id = limit_pair.first_value_id
+				second_value_id = limit_pair.second_value_id
+				firstValue = Value.find(first_value_id)
+				secondValue = Value.find(second_value_id)
+				firstparameter = Parameter.find(firstValue.parameter_id)
+				secondparameter = Parameter.find(secondValue.parameter_id)
+				i = 0
+				aindex = -1
+				while i < @manager.parameters.paramsArr.length  do 		
+					if @manager.parameters.paramsArr[i].paramname == firstValue.parameter_id
+					 aindex = i
+					 break
+					end
+					i+=1
+				end		
+				i = 0
+				bindex = -1
+				while i < @manager.parameters.paramsArr.length  do 		
+					if @manager.parameters.paramsArr[i].paramname == secondValue.parameter_id
+					 bindex = i
+					 break
+					end
+					i+=1
+				end
+		
+
+		
+		
+				tempair = Pair.new first_value_id.to_i,second_value_id.to_i
+
+
+		
+
+				i = 0
+				while i < @manager.limitvaluesArr.length do 
+					tempairs = @manager.limitvaluesArr[i]
+					if tempairs.firstParam.to_i == aindex.to_i && tempairs.secondParam.to_i == bindex.to_i
+					break
+					end
+					i+=1
+				end
+				if i < @manager.limitvaluesArr.length  #yijingcunzai 
+					@manager.limitvaluesArr[i].pairsArr << tempair
+				else
+					tempairs = Pairs.new aindex.to_i,bindex.to_i
+					tempairs.pairsArr << tempair
+					@manager.limitvaluesArr << tempairs
+				end
+		
+		
+			  end
+			  
+			 
+
+
+			#input must not have limit contions end
+	
+			@manager.generatePairs
+			@manager.generateNumCases
+			
+			
+
+		#store the results to db
+
+
+		puts "matrix_config name"
+		puts @matrix_config.name
+
+		for i in 0...@manager.records.recordsArr.length do
+			for j in 0...@manager.records.recordsArr[i].valuesArr.length do
+				result = Result.new
+				temp = -1
+			
+			@matrix_config.matrix_params.each do |matrix_param|
+	if	matrix_param.parameter_id == Value.find(@manager.parameters.paramsArr[j].elementsArr[@manager.records.recordsArr[i].valuesArr[j]].value).parameter_id
+				#puts "matrix_param belong to matrix_config_id"
+				#puts matrix_param.matrix_config_id		
+				
+				#puts "Paramete Name"
+				#puts Parameter.find(matrix_param.parameter_id).name
+
+				#puts "parameter Name"
+				#puts Parameter.find(matrix_param.parameter_id).name
+				
+				temp = matrix_param.id
+				
+				break
+				end
+			end
+			result.matrix_config_id = @matrix_config.id
+     			result.matrix_param_id =temp.to_i
+			result.value_id = @manager.parameters.paramsArr[j].elementsArr[@manager.records.recordsArr[i].valuesArr[j]].value
+			result.has_chosen=true 
+			result.sort_id = i
+			result.save
+
+			end
+		end
+		
+
+		#store the results end
+		@matrix_config.has_results = true
+		@matrix_config.save
+                #add by chuangye start
+                 allresults = Array.new
+	         resultnum = 0
+                 @manager.records.recordsArr.clear
+	      
+		@matrix_config.results.each do  |result|
+
+				allresults << result
+				resultnum+=1
+
+		end
+		
+		#puts "true results num ="
+	     # puts resultnum
+
+		j = 0
+		recordsArr = Array.new
+	       while j <resultnum do
+		record = Record.new
+		paramindex=0
+		while paramindex<paramsnum do
+		result = allresults[j]
+		elementindex=0
+		while elementindex < @manager.parameters.paramsArr[paramindex].elementsArr.length do
+			if @manager.parameters.paramsArr[paramindex].elementsArr[elementindex].value ==result.value_id
+			break
+			end
+			elementindex+=1
+		end
+		record.valuesArr[paramindex]=result.value_id
+		paramindex+=1
+		j+=1
+		end
+		
+		 @manager.records.recordsArr	 << record
+               end
+                 @manager.allResult
+                 
+                #get the uc_result,namely, uc_result=all_result -result
+                for m in 0...@manager.records.recordsArr.length do
+                    for n in 0...@manager.ucrecords.recordsArr.length do
+                         flag=0
+                         for k in 0 ...paramsnum do
+                             if @manager.records.recordsArr[m].valuesArr[k]!= @manager.ucrecords.recordsArr[n].valuesArr[k]
+                                   flag=1
+                                   break #break out for k
+                             end
+                         
+                        end #for k
+                        if flag==0
+                           @manager.ucrecords.recordsArr.delete_at(n) 
+                           break 
+                        end  
+          
+                 end #for n
+                end #for m
+                #just for test start
+                print "ffffffffffffffffffffffffffff"
+                for m in 0...@manager.ucrecords.recordsArr.length do
+                 for n in 0 ...paramsnum do
+                   puts @manager.ucrecords.recordsArr[m].valuesArr[n]
+          
+                 end
+                end
+                #just for test end
+                #add by chuangye end 
+	
+
+			endtime = Time.now
+			@costtime = endtime-starttime
+          end
+	   
+          respond_to do |format|
+		format.html
+		format.json {render json: @matrix_params}		
+	 
+
+       
+   end
+        
+ 
+	def calculation
+		puts "~~~~~~"
+		puts params[:sbili]
+		puts params[:sbili1]
+		puts params[:sbili2]
+		
+		@selectedvalue_id = params[:value_id]
+		@sbili = params[:sbili]
+		@tbili = params[:tbili]
+                print "+++++++++++++++"
+                print params[:value_id]
+		@selectedparameter_id = Value.find(@selectedvalue_id).parameter_id
+		@selectedparameterindex = -1		
+		
+
+		@matrix_config = MatrixConfig.find(params[:matrix_config_id])
+		group = Group.find(@matrix_config.group_id)
+		
+		 @user = User.find(group.user_id)
+		 @groups = @user.groups
+
+		@matrix_params = @matrix_config.matrix_params
+
+					@costtime
+					paramsnum = @matrix_params.count
+
+		 @width = 100/(paramsnum+3.to_f)
+					@manager = Manager.new
+					starttime = Time.now
+			i=0
+			 while i < paramsnum do   
+			       temparameter = BParameter.new (@matrix_params[i].parameter.id)
+				vlen = @matrix_params[i].matrix_values.count
+				
+				if @matrix_params[i].parameter.id == @selectedparameter_id
+					@selectedparameterindex = i
+				end
+				for j in 0...vlen.to_i do # input the value for current parameter 
+				       element = Element.new @matrix_params[i].matrix_values[j].value.id,0
+				       element.setweight @matrix_params[i].matrix_values[j].weight
+
+				       temparameter.addElement element
+				      end
+				     @manager.parameters.paramsArr <<  temparameter  #store the temparameter to @parameters
+		  		i+=1
+		  	end
+
+
+	      paramnum = @matrix_config.matrix_params.count
+	      allresults = Array.new
+	      resultnum = 0
+	      
+		@matrix_config.results.each do  |result|
+
+				allresults << result
+				resultnum+=1
+
+		end
+		
+	      puts "true results num ="
+	      puts resultnum
+
+		j = 0
+		recordsArr = Array.new
+	    while j <resultnum do
+		record = Record.new
+		paramindex=0
+			while paramindex<paramnum do
+			result = allresults[j]
+			elementindex=0
+				while elementindex < @manager.parameters.paramsArr[paramindex].elementsArr.length do
+					if @manager.parameters.paramsArr[paramindex].elementsArr[elementindex].value ==result.value_id
+					break
+					end
+					elementindex+=1
+				end
+			record.valuesArr[paramindex]=result.value_id
+			paramindex+=1
+			j+=1
+			end
+		
+		 @manager.records.recordsArr << record
+	end
+		@allArray = Array.new @manager.records.recordsArr.length
+		@sarray = Array.new
+		@stotal = 0
+		@tarray = Array.new
+		@ttotal = 0		
+		i = 0
+		while i < @manager.records.recordsArr.length do 
+                                temweight = -1
+				tem = Array.new 
+
+				if @manager.records.recordsArr[i].valuesArr[@selectedparameterindex].to_i == @selectedvalue_id.to_i #include special value
+
+					@matrix_config.matrix_params.each do |matrix_param|
+						matrix_param.matrix_values.each do |matrix_value|
+							if matrix_value.value_id ==@manager.records.recordsArr[i].valuesArr[@selectedparameterindex]
+								temweight = matrix_value.weight
+								break
+							end
+						end
+					end
+				
+				@allArray[i]=[i,temweight.to_i,0]
+
+
+
+				@sarray << i
+				@stotal+=temweight.to_i
+
+				else
+
+					j =0
+					while j < @manager.records.recordsArr[i].valuesArr.length do
+				#temweight += @matrix_config.matrix_params.matrix_values.find_by_value_id(@manager.records.recordsArr[i].valuesArr[j]).weight
+				@matrix_config.matrix_params.each do |matrix_param|
+							matrix_param.matrix_values.each do |matrix_value|
+								if matrix_value.value_id ==@manager.records.recordsArr[i].valuesArr[j]
+									temweight += matrix_value.weight
+									break
+								end
+							end
+						end
+
+						
+						j+=1
+					end
+					@allArray[i]=[i,temweight.to_i,0]
+
+					@tarray << i
+					@ttotal += temweight
+				end
+
+
+				i+=1
+			end
+					
+
+		     if @sbili.to_i > @sarray.length*100 
+			#@sbili = @sarray.length*100
+		     end
+
+			
+		     s = @sbili.to_f/@stotal
+		    
+		     i = 0
+		     while i < @sarray.length do
+			@allArray[@sarray[i]][2]=@allArray[@sarray[i]][1]*s
+
+			i+=1
+		     end
+		      if (@tbili.to_f-@sbili.to_f)<0
+			@tbili=@tarray.length*100
+		      end
+		     s = (@tbili.to_f-@sbili.to_f)/@ttotal.to_f
+		     i = 0
+		     while i < @tarray.length do
+			@allArray[@tarray[i]][2]=@allArray[@tarray[i]][1]*s
+
+			i+=1
+		    end
+
+	puts "selectedparameterindex"
+	puts @selectedparameterindex
+
+	endtime = Time.now
+	@costtime = endtime - starttime
+
+=begin
+	  respond_to do |format|
+		
+	#		format.html { redirect_to :action => 'index', :matrix_config_id => @matrix_config.id}
+	#		navTabName ='#{group.name + @matrix_config.name}'
+			format.json {render :json=>{ 'statusCode' =>'200', 'message'=>' Calculation finished!','navTabID' => 'calculation', 'rel' =>'forward' , 'forwardUrl'=>'calculation' }}
+		     
+	#		format.html { render action: "calculation",layout:"mainlayout",:target=>"navTab",:rel=>"calculation" }
+     
+		     
+	  end
+=end	
+
+	end
+  
+	def calculate
+		@matrix_config = MatrixConfig.find(params[:matrix_config_id])
+               
+              
+	end 
+      #add by chuangeye start
+       def choseOtherResult
+           
+       end
+      #add by chuangye end
+
+
+end

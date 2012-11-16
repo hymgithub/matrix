@@ -1,0 +1,70 @@
+<!--<h1>Example#export</h1>
+<p>Find me in app/views/example/export.html.erb</p>
+<table border="1">
+  <tr>
+    <th>Code</th>
+  </tr>
+  <% @matrix_params.each do |y| %>
+  <tr>
+   <td><%= y.id%></td>
+  <% end %>
+ </tr>
+</table>
+-->
+<table border="1" width="100%">
+		<thead>
+			<tr>
+				
+ 	
+		<%@matrix_config.matrix_params.each do |matrix_param|%>
+						<th width="<%=@width%>%"><%=matrix_param.parameter.name%></th>
+		<%end%>
+			<th  width="<%=@width%>%">Weight</th>
+			<% if @flag=="hasid" %><th  width="<%=@width%>%">%</th> <% end %>
+			</tr>
+		</thead>
+		<tbody>
+<%for i in 0...@manager.records.recordsArr.length do%>
+	<tr target="sid_obj" rel=i>
+		
+		<%w=0%>
+		<%for j in 0...@manager.records.recordsArr[i].valuesArr.length do%>
+		
+		<td width="<%=@width%>%"><%if Value.find(@manager.records.recordsArr[i].valuesArr[j])!=nil  %><%=Value.find(@manager.records.recordsArr[i].valuesArr[j]).value%>
+<%temweight=-1%>		    
+		<%
+		    	@matrix_config.matrix_params.each do |matrix_param|
+					 tag=0
+					matrix_param.matrix_values.each do |matrix_value|
+						if matrix_value.value_id ==@manager.records.recordsArr[i].valuesArr[j] 
+							temweight = matrix_value.weight
+                                                        tag=1
+							break
+						end
+					end
+                                        if tag==1
+                                         break
+                                        end
+				end
+			%>
+			[<%=temweight%>]
+
+		    <%w+=temweight%>
+<%end%>
+		</td>
+		<%end%>
+		<td>
+		<%=w%>
+		</td>
+               <% if @flag=="hasid" %>
+		<td width="<%=@width%>%" style="color:red">
+<%=@allArray[i][2].round(2)%>%
+		</td>
+              <% end %>
+	</tr>          
+<%end%>
+		
+			
+			
+		</tbody>
+</table>

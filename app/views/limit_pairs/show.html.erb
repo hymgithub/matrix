@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Matrix config:</b>
+  <%= @limit_pair.matrix_config_id %>
+</p>
+
+<p>
+  <b>First value:</b>
+  <%= @limit_pair.first_value_id %>
+</p>
+
+<p>
+  <b>Second value:</b>
+  <%= @limit_pair.second_value_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_limit_pair_path(@limit_pair) %> |
+<%= link_to 'Back', limit_pairs_path %>

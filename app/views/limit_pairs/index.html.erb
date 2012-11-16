@@ -1,0 +1,27 @@
+<h1>Listing limit_pairs</h1>
+
+<table>
+  <tr>
+    <th>Matrix config</th>
+    <th>First value</th>
+    <th>Second value</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @limit_pairs.each do |limit_pair| %>
+  <tr>
+    <td><%= limit_pair.matrix_config_id %></td>
+    <td><%= limit_pair.first_value_id %></td>
+    <td><%= limit_pair.second_value_id %></td>
+    <td><%= link_to 'Show', limit_pair %></td>
+    <td><%= link_to 'Edit', edit_limit_pair_path(limit_pair) %></td>
+    <td><%= link_to 'Destroy', limit_pair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Limit pair', new_limit_pair_path %>

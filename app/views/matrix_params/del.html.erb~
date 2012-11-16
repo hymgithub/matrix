@@ -1,0 +1,17 @@
+<div class="pageContent">
+<form  method="get" width="100px" height="60px" class="pageForm" action="/matrix_params/destroy" onsubmit="return navTabSearch(this);" >   
+
+		<div class="pageFormContent" layoutH="50">
+                               Are you sure to delete?
+
+                         <input id="param_id" name="param_id" type="hidden" value="<%=@matrix_param.id%>">
+			
+		</div>
+		<div class="formBar">
+		 <ul>
+				<li><div class="buttonActive"><div class="buttonContent"> <button type="submit">Yes</button></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
+		 </ul>
+	</div>
+	
+</div>
