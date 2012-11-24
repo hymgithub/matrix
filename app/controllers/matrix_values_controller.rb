@@ -175,12 +175,31 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
   # DELETE /matrix_values/1.json
   def destroy
     @matrix_value = MatrixValue.find(params[:id])
+    @matrix_param = @matrix_value.matrix_param
     matrix_config_id = @matrix_value.matrix_param.matrix_config.id
     @matrix_config = MatrixConfig.find(matrix_config_id)
     @group = Group.find(@matrix_config.group_id)
     @user = User.find(@group.user_id)
     @matrix_value.destroy
 
+    logger.info("================destroy")
+    count = @matrix_param.matrix_values.count
+    i=0
+    wei = 1
+    @matrix_param.matrix_values.each do |matrix_value|
+	if i< count -1 
+		matrix_value.weight = (1.to_f/count.to_f).round(4)
+		matrix_value.save
+		wei = wei - matrix_value.weight
+        else
+		matrix_value.weight = wei
+		matrix_value.save
+        end
+        i+=1
+    end
+    
+
+ 
     respond_to do |format|
 #      format.html { redirect_to matrix_values_url(:matrix_config_id=>matrix_config_id) }
       format.html { redirect_to groups_url(:user_id=>@user) }

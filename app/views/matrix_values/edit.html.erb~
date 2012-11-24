@@ -17,13 +17,27 @@
 		var i=0;
 		var total=0;
 		for(i=0;i<w.length;i++){
-			total+=parseFloat(w[i].value);
+			//ert(rTrim(w[i].value)+"~~~");
+			total+=parseFloat(rTrim(w[i].value));
+			//alert(total);
 		}		
 		//alert(total);
+		//alert(total.toFixed(4))
 		var s=document.getElementById("tweight");
-		s.innerHTML=total;
+		s.innerHTML=total.toFixed(4);
 
 	}
+
+	function rTrim(str){
+		if(str.charAt(str.length-1)==" "){
+			str=str.slice(0,str.length-1);
+			str= rTrim(str);
+		}
+		return str;
+	}
+
+
+
 
 </script>
 
@@ -33,7 +47,7 @@
 			<tr>
 				<label style="color:blue"><%= @matrix_value.value.value%>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<label  style="color:blue">weight:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name ="weight[<%= @matrix_value.id %>]" value=" <%= @matrix_value.weight%>" onchange="checksum()"/>
+				<input type="text" name ="weight[<%= @matrix_value.id %>]" value="<%= @matrix_value.weight%>" onchange="checksum()"/>
 			</tr>
 		
 		</div>
@@ -45,7 +59,7 @@
 			<tr>
 				<lable><%= matrix_value.value.value%>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<label>weight:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name ="weight[<%= matrix_value.id %>]" value=" <%= matrix_value.weight%>" onchange="checksum()"/>
+				<input type="text" name ="weight[<%= matrix_value.id %>]" value="<%= matrix_value.weight%>" onchange="checksum()"/>
 			</tr>
 		</div>
 		<% end %>
@@ -55,10 +69,10 @@
 	<div class="formBar">
 		<ul>
 			<li style="position:static;right:250px"><span style="">Total weight:</span>
-			    <span id="tweight"> 
+			    <span id="tweight"> <%= total%>
 				
 			    </span>&nbsp;&nbsp;&nbsp;&nbsp;
-			    <span id="must" style="color:red">(The total weight must be 1.)</span>
+			    <span id="must" style="color:red">(The total weight must be 1.0000)</span>
 
 			</li>
 			<li><div class="buttonActive"><div class="buttonContent"> <button type="submit">Submit</button></div></div></li>
