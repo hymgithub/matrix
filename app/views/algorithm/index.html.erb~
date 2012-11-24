@@ -240,7 +240,7 @@ $(function () {
 		</td>
 		<%end%>
 		<td><%=w%></td>
-		<td>test~~</td>
+		<td><%= @wei[i].round(4)%></td>
 		
 	   </tr>          
           <%end%>

@@ -140,8 +140,13 @@ class Record
    def weight
    @weight
    end
+  
+   def setwe wt
+	@weight = wt
+   end
+
    def setweight wt
-   @weight=@weigth+wt
+   @weight=@weight+wt
    end
    
 end
@@ -987,11 +992,11 @@ end
         record =Record.new
         for k in 0 ...@parameters.paramsArr.length do
            record.valuesArr[k] = @parameters.paramsArr[k].elementsArr[@counter[k]].value
-          # puts "*****"
+	   # puts "*****"
           # puts record.valuesArr[k]
-         end
-         @ucrecords.recordsArr << record
-         handle
+        end
+        @ucrecords.recordsArr << record
+        handle
      end
  end
 #add by chuangye end--------------------------------------------------------------------------------------------------
@@ -1211,20 +1216,60 @@ class AlgorithmController < ApplicationController
                                    break #break out for k
                              end
                          
-                        end #for k
-                        if flag==0
+                         end #for k
+                         if flag==0
                            $manager.ucrecords.recordsArr.delete_at(n) 
                            break 
-                        end  
+                         end  
           
-                 end #for n
+                    end #for n
                 end #for m
+                 
+                # added by huangym
+		# get every ucrecord's weight
+		for i in 0...$manager.ucrecords.recordsArr.length do 
+			record = $manager.ucrecords.recordsArr[i]
+			for j in 0...record.valuesArr.length do 
+				@matrix_params.each do |matrix_param|
+					matrix_param.matrix_values.each do |matrix_value|
+						if matrix_value.value_id == record.valuesArr[j]
+							record.setweight matrix_value.weight
+						end
+					end
+				end
+			end
+		end
+
+
+                #####  end ####
+
+
                 puts $manager.records.recordsArr.length
                 puts "*********************************************"
-                 @num=$manager.ucrecords.recordsArr.length
-                 if @num > 100
+                @num=$manager.ucrecords.recordsArr.length
+                if @num > 100
                     @num = 100
-                  end
+		    #added by huangym
+		    records = $manager.ucrecords.recordsArr
+		    for i in 0...100 do 
+			for j in i...records.length do 
+			     if records[i].weight < records[j].weight
+				temp = records[j]
+				records[j]=records[i]
+				records[i]=temp				
+			     end
+			end
+		    end
+
+ 		    # just for test
+		   logger.info("!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@2#######################3")
+		   for i in 0...records.length do 
+			logger.info(records[i].weight)
+		   end	
+
+		    # end 
+
+                end
                  
                 #add by chuangye end 
 	
@@ -1233,7 +1278,7 @@ class AlgorithmController < ApplicationController
 	haveSelected = Array.new    # store the index of record which has been selected		
 	selectedPairs = Array.new   # store the pair has appeared
 
-	@wei = Array.new  # store the weight of record
+	#@wei = Array.new  # store the weight of record
 
         while haveSelected.length < $manager.records.recordsArr.length do
 
@@ -1271,8 +1316,9 @@ class AlgorithmController < ApplicationController
 					we += fweight*sweight	
 				end
 			end	
-			#$manager.records.recordsArr[i].weight = we
-			@wei[i]=we
+			$manager.records.recordsArr[i].setwe we
+			logger.info("####################")
+			#@wei[i]=we
 			logger.info(we)
 			logger.info("~~~~ we~~")		
 
@@ -1288,13 +1334,13 @@ class AlgorithmController < ApplicationController
 		#		maxIndex = i
 		#	end
 		#end
-		logger.info(@wei.to_s)
-		for i in 0...@wei.length do
+		#logger.info(@wei.to_s)
+		for i in 0...$manager.records.recordsArr.length do
 			if haveSelected.include? i
 				next
 			end
-			if max < @wei[i]
-				max = @wei[i]
+			if max < $manager.records.recordsArr[i].weight
+				max = $manager.records.recordsArr[i].weight
 				maxIndex=i
 			end
 		end		

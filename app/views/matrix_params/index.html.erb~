@@ -10,6 +10,14 @@
 		json.style.display="block";
 		save.style.display="inline";
 		can.style.display = "inline";
+
+		var s = document.getElementById("jsondiv");
+		var m = document.getElementById("tablediv");
+		var n = document.getElementById("jbsxBox");
+		s.clientHeight = 200;
+		//alert(s.clientHeight);
+		//alert(m.clientHeight);
+		//alert(n.clientHeight);
 	}
 
 	function hideJson(id)
@@ -86,7 +94,7 @@
 								</ul>		
 						</div>
 						<div layoutH="150">
-                                                       <div height="50%">
+                                                       <div height="50%" id ="tablediv">
 							<table class="table" width="100%"  rel="jbsxBox" style=" overflow: scroll;" >
 								<thead>
 									<tr>
@@ -159,15 +167,17 @@
 							<!-- added by huangym -->
 							<% str = @jsonStr.to_s 
 							   str= str.gsub("{\"name\":", "\n{\"name\":")
-							   puts str
+							   str= str.gsub("\"Invalid pairs\"","\n\"Invalid pairs\"")
+							   str = str.gsub("{\"first_parameter\"","\n{\"first_parameter\"")
+							   count = str.count "\n"
 							   puts "~~~~~~~~~~~~~~~~~~"
 							%>
-							<div height="50%" class="j-resizedGrid">
+							<div height="50%" class="j-resizeGrid" id="jsondiv">
                                                              <table width="100%" style=" overflow: scroll;"  >
                                                                   <tr><td>
 								<form action="matrix_params/import" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
 									<input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=@matrix_config.id%>"/>
-									<textarea name="jsonStr" id="json<%= @matrix_config.id%>" value="hello"  rows="22" style='display:none;width:99.6%;hight:100%'><%= str %></textarea>
+									<textarea name="jsonStr" id="json<%= @matrix_config.id%>" rows="15"  style='display:none;width:99.6%;hight:100%;background:none'><%= str %></textarea>
 									<input type="submit" value="Save" id="save<%= @matrix_config.id%>" style='display:none'>
 									<input type="button" id="cancel<%= @matrix_config.id%>" value="Cancel" style='display:none' onclick ="hideJson('<%= @matrix_config.id%>')">
 								</form>

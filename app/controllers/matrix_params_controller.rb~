@@ -50,6 +50,17 @@ class MatrixParamsController < ApplicationController
 	end
 
 	hash["parameters"] = arry
+
+
+	arr = Array.new
+	@matrix_config.limit_pairs.each do |pair|
+		h = Hash.new
+		h["first_parameter"] = Value.find(pair.first_value_id).value
+		h["second_parameter"] = Value.find(pair.second_value_id).value
+		arr << h
+	end
+	hash["Invalid pairs"]=arr
+
 	@jsonStr = hash.to_json
 
     ###   end  ###
@@ -238,8 +249,10 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Succ
         puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 	puts result.to_s
 	parameters = result["parameters"]
+	invalidPairs = result["Invalid pairs"]
 	puts parameters
 
+	####################################################### import parameters
         # if the matrix_config has parameters, then destroy
         if @matrix_config.matrix_params!= nil
 		@matrix_config.matrix_params.each do |matrix_param|
@@ -311,6 +324,35 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Succ
 		flag=0
 	end
 
+	###################################################### import invalid pairs
+	if @matrix_config.limit_pairs!=nil
+		@matrix_config.limit_pairs.each do |limit_pair|
+			limit_pair.destroy
+		end
+	end
+
+	logger.info(invalidPairs.to_s)
+	for i in 0...invalidPairs.length do
+		fvalue=invalidPairs[i]["first_parameter"]
+		svalue=invalidPairs[i]["second_parameter"]
+		logger.info("~~~~~~~~~~~~~~~~~~first_param")
+		logger.info(fvalue)
+		limit_pair = LimitPair.new
+		fv=Value.find_by_value(fvalue)
+		logger.info(fv.id)
+		limit_pair.first_value_id = fv.id
+		sv= Value.find_by_value(svalue)
+		logger.info(sv.id)
+		limit_pair.second_value_id =sv.id
+		logger.info(limit_pair.to_s)
+		logger.info("~~~~-----------")
+		limit_pair.matrix_config_id = @matrix_config.id
+		logger.info(limit_pair.to_s)
+		limit_pair.save
+		logger.info("0000000000000")
+	end
+
+
 	rescue
 		puts "failed"
 		message = "Import parameters failed! Please check the json string."
@@ -368,6 +410,15 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Succ
 	end
 
 	hash["parameters"] = arry
+        arr = Array.new
+	@matrix_config.limit_pairs.each do |pair|
+		h = Hash.new
+		h["first_parameter"] = Value.find(pair.first_value_id).value
+		h["second_parameter"] = Value.find(pair.second_value_id).value
+		arr << h
+	end
+	hash["Invalid pairs"]=arr
+
 	@jsonStr = hash.to_json
 
         send_data(@jsonStr, options={:type => 'text', :disposition => "attachment", :filename => "json.txt"})
