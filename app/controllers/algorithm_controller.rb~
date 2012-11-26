@@ -1260,7 +1260,14 @@ class AlgorithmController < ApplicationController
 			     end
 			end
 		    end
-		    # end 
+
+ 		    # just for test
+		   #logger.info("!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@2#######################3")
+		   #for i in 0...records.length do 
+		   #	logger.info(records[i].weight)
+		   #end	
+
+		    # huangym end 
 
                 end
                  
@@ -1289,31 +1296,31 @@ class AlgorithmController < ApplicationController
 					if selectedPairs.include?([re[j],re[k]])
 						next
 					end
-					logger.info("==============================")
-					logger.info(re[j])
+					#logger.info("==============================")
+					#logger.info(re[j])
 					fweight=0
 					sweight=0
 					@matrix_params.each do |matrix_param|
 						matrix_param.matrix_values.each do |matrix_value|
 							if matrix_value.value_id == re[j]
 								fweight = matrix_value.weight
-								logger.info("11111111111111111")
+								#logger.info("11111111111111111")
 							end
 							if matrix_value.value_id == re[k]
 								sweight = matrix_value.weight
 							end
 						end
 					end
-					logger.info("~~~~fweight")
-					logger.info(fweight)
+					#logger.info("~~~~fweight")
+					#logger.info(fweight)
 					we += fweight*sweight	
 				end
 			end	
 			$manager.records.recordsArr[i].setwe we
-			logger.info("####################")
+			#logger.info("####################")
 			#@wei[i]=we
-			logger.info(we)
-			logger.info("~~~~ we~~")		
+			#logger.info(we)
+			#logger.info("~~~~ we~~")		
 
 		end
 

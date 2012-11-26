@@ -110,7 +110,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									
+									<%      arr = Array.new
+										@matrix_config.limit_pairs.each do |limit_pair|
+											arr<<limit_pair.first_value_id
+											arr<<limit_pair.second_value_id
+										end
+									%>
 
 									<%j=1%>			
 									<% @matrix_params.each do |matrix_param| %>
@@ -119,7 +124,7 @@
 													<td><%=matrix_param.parameter.name%>(<%=matrix_param.matrix_values.count%>)</td>
 										<%i=0%>
 										<%matrix_param.matrix_values.each do |matrix_value|%>
-										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)">
+										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%>>
 				<%=matrix_value.value.value%>[<%=matrix_value.weight%>]
 
 <script type="text/javascript">
