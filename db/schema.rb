@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114093005) do
+ActiveRecord::Schema.define(:version => 20121126031605) do
 
   create_table "group_parameters", :force => true do |t|
     t.integer  "group_id"
@@ -87,10 +87,13 @@ ActiveRecord::Schema.define(:version => 20121114093005) do
     t.integer  "value_id"
     t.boolean  "has_chosen"
     t.integer  "sort_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.integer  "matrix_config_id"
-    t.integer  "tag",              :default => 0
+    t.integer  "tag",                                             :default => 0
+    t.decimal  "sumWeight",        :precision => 10, :scale => 4
+    t.decimal  "pairWeight",       :precision => 10, :scale => 4
+    t.decimal  "coverage",         :precision => 10, :scale => 4
   end
 
   create_table "users", :force => true do |t|

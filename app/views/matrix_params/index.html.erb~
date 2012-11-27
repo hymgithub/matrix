@@ -85,7 +85,7 @@
 
 <li><a class="edit" href="javascript: showJson('<%= @matrix_config.id%>');"><span>Json Editor Panel</span></a></li>
 <% if @has_results.to_s=="true"%>
-<li><a id ="oldMatrix" class="edit" href="<%= algorithm_index_path(:matrix_config_id=>@matrix_config,:op=>"false") %>" target="navTab" rel="resulttab" title=" Existed Results">
+<li><a id ="oldMatrix" class="edit" href="<%= algorithm_index_path(:matrix_config_id=>@matrix_config,:op=>"false") %>" target="navTab" rel="resulttab" title="<%= @matrix_config.name%>-Existed Results">
 <span>Existing Matrix</span></a></li>
 <% end%>
  <li><a class="icon" href="<%=exportxls_export_path(:matrix_config_id=>@matrix_config)%>"><span>Export To Excel</span></a></li> 
@@ -93,9 +93,9 @@
 
 								</ul>		
 						</div>
-						<div layoutH="150">
+						<div layoutH="160">
                                                        <div height="50%" id ="tablediv">
-							<table class="table" width="100%"  rel="jbsxBox" style=" overflow: scroll;" >
+							<table class="table"  rel="jbsxBox" style=" overflow: scroll;" >
 								<thead>
 									<tr>
 										<th width="40">ID</th>
@@ -119,24 +119,36 @@
 
 									<%j=1%>			
 									<% @matrix_params.each do |matrix_param| %>
-											<tr target="sid_obj" rel="1">
+											<tr target="sid_obj" rel="<%=j%>">
 													<td><%=j%><%j+=1%></td>
 													<td><%=matrix_param.parameter.name%>(<%=matrix_param.matrix_values.count%>)</td>
 										<%i=0%>
 										<%matrix_param.matrix_values.each do |matrix_value|%>
-										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#E8F999"<%end%>>
+										<td style="word-break:break-all;" id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
 				<%=matrix_value.value.value%>[<%=matrix_value.weight%>]
 
 <script type="text/javascript">
  	function funOn(node,id){
 		var s = document.getElementById("op"+id);
 		s.style.display="inline";
+		//alert(node.parentNode.parentNode.parentNode);
+		//alert(node.clientWidth);
+		//node.style.width=node.clientWidth+200+'px';
+	
+		node.setAttribute('width',node.clientWidth +200);
+		//alert(node.width);
 
 	}
 
 	function funOff(node,id){
 		var s = document.getElementById("op"+id);
 		s.style.display="none";
+	}
+
+        window.onload = ResizeWin;
+	window.onresize = ResizeWin;
+        function ResizeWin(){
+		
 	}
 
 </script>
@@ -169,6 +181,7 @@
 								
 							</table>
                                                       </div>
+							
 							<!-- added by huangym -->
 							<% str = @jsonStr.to_s 
 							   str= str.gsub("{\"name\":", "\n{\"name\":")
@@ -177,19 +190,35 @@
 							   count = str.count "\n"
 							   puts "~~~~~~~~~~~~~~~~~~"
 							%>
-							<div height="50%" class="j-resizeGrid" id="jsondiv">
-                                                             <table width="100%" style=" overflow: scroll;"  >
-                                                                  <tr><td>
+							<div height="50%" class="j-resizeGrid" id="jsondiv" style="position:absolute;bottom:30px;left:0px;right:2px">
 								<form action="matrix_params/import" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
+                                                             <table width="100%" style=" overflow: scroll;"  >
+								
+							         <div style="background-color:#DDDDFF" width="101%">
+									<input type="submit" value="Save" id="save<%= @matrix_config.id%>" style='display:none'> 
+									<input type="button" id="cancel<%= @matrix_config.id%>" value="Cancel" style='display:none' onclick ="hideJson('<%= @matrix_config.id%>')">   
+								<!--	<img src='assets/save.jpg' type="submit" id="save<%= @matrix_config.id%>" style='display:none;'/>   
+									<img src='assets/icn_alert_error.png' id="cancel<%= @matrix_config.id%>" style='display:none;'  onclick ="hideJson('<%= @matrix_config.id%>')"/>  -->
+								  </div>   
+                                                                <tr><td>
+							
+
 									<input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=@matrix_config.id%>"/>
-									<textarea name="jsonStr" id="json<%= @matrix_config.id%>" rows="15"  style='display:none;width:99.6%;hight:100%;background:none'><%= str %></textarea>
-									<input type="submit" value="Save" id="save<%= @matrix_config.id%>" style='display:none'>
-									<input type="button" id="cancel<%= @matrix_config.id%>" value="Cancel" style='display:none' onclick ="hideJson('<%= @matrix_config.id%>')">
-								</form>
-                                                        </td></tr></table>
+									<textarea name="jsonStr" id="json<%= @matrix_config.id%>" rows="10"  style='display:none;width:99.6%;hight:100%;background:none'><%= str %></textarea>
+									
+								<!--	<input type="button" id="cancel<%= @matrix_config.id%>" value="Cancel" style='display:none' onclick ="hideJson('<%= @matrix_config.id%>')">    -->
+								<!--<input type="submit"  value="Save" id="save<%= @matrix_config.id%>" style='display:none;'>  -->
+	                                     
+	                     				  <td>
+								</tr>
+							     </table>    </form>
 							</div>
 							<!-- end  -->
+
+
 							</div>	
+
+
 							<div class="panelBar">	
 							<!--   added by huangym   -->
 								<form action="matrix_params/import" enctype="multipart/form-data" method ="post" onsubmit="return iframeCallback(this,navTabAjaxDone);" >

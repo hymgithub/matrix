@@ -19,8 +19,10 @@
 		<%@matrix_config.matrix_params.each do |matrix_param|%>
 						<th width="<%=@width%>%"><%=matrix_param.parameter.name%></th>
 		<%end%>
-			<th  width="<%=@width%>%">Weight</th>
+			<th  width="<%=@width%>%">SumWeight</th>
 			<% if @flag=="hasid" %><th  width="<%=@width%>%">%</th> <% end %>
+			<th  width="<%=@width%>%">PairWeight</th>
+			<th width="<%=@width%>%">Coverage</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -61,6 +63,8 @@
 <%=@allArray[i][2].round(2)%>%
 		</td>
               <% end %>
+		<td><%= $manager.records.recordsArr[i].weight.round(4)%></td>
+		<td><%= $manager.records.recordsArr[i].coverage%>%</td>
 	</tr>          
 <%end%>
 		

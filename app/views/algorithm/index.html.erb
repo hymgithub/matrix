@@ -21,6 +21,8 @@
 		   <div>
                       <div id="jbsxBox" class="unitBox" style="margin-left:10px;">
 
+<!--     form start   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       -->
+<form action="algorithm/saveCoverage" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
 
 			<div class="pageHeader" style="border:1px #B8D0D6 solid">
 	                 <div class="searchBar">		
@@ -28,19 +30,64 @@
 			     <tr>
 				<td class="dateRange">Amount: <%=$manager.records.recordsArr.length%>	</td>
 				<td>Response Time: <%=@costtime%></td>
-				<td> <a class="delete" href="<%=exportxls_exportresults_path(:matrix_config_id=>$matrix_config,:tag=>"noid")%>"
-                                    ><span>Export To Excel</span></a>
+				<td> <a class="delete" href="<%=exportxls_exportresults_path(:matrix_config_id=>$matrix_config,:tag=>'noid')%>" onclick="return confirm('Friendly Reminder: You can click the right SAVE to save the result.')"><span>Export To Excel</span></a>
 				</td>
-                                 <td>	
-					<%= link_to "Assign Efforts", algorithm_calculate_path(:matrix_config_id=>$matrix_config),{:target=>"dialog", :rel =>'assignEfforts', :mask=>'true', :title=>"Assign Efforts"} %>
-				</td>
+                          <!--  <td>	
+					<%= link_to "Assign Efforts", algorithm_calculate_path(:matrix_config_id=>$matrix_config),{:target=>"dialog", :rel =>'assignEfforts', :mask=>'true', :title=>"Assign Efforts"} %>    
+				</td>    -->
                                 <td> <form action="algorithm/index" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
                                      <input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=$matrix_config.id%>"/>
                                       <input name="reset" id="reset" type="hidden" value="true"/>
                                        <input name="op" id="op" type="hidden" value="false"/>
-                                      <input type="submit" name="rs" id="rs" value="reset"/>
+                                      <input type="submit" class="button1" name="rs" id="rs" value="Reset"/>
                                      </form>
 				</td>
+
+				<td>
+					<%      totalCo = 0
+						$manager.records.recordsArr.each do |record|
+							totalCo = totalCo+record.coverage
+						end
+					 %>
+					Total coverage: <span id="total" style="color:red"><%=totalCo %>%</span>
+				</td>
+				<td align="right">
+				     <input type="submit" class="button1" name="rs" id="rs" value="SAVE"style="color:red"/>
+
+				</td>
+
+<!--  added by huangym  -->	
+<script type="text/javascript">
+	function updateTotal(){
+		//alert("update");
+		var co= document.getElementById("testTable").getElementsByTagName("input");
+		//var co = document.getElementsByName("coverage");
+		var i=0;
+		var total =0;
+		for(i=0;i<co.length;i++){
+			total+=parseFloat(co[i].value);
+		}
+		//alert(total);
+		var sp = document.getElementById("total");
+		sp.innerHTML=total+"%";
+	}
+
+</script>
+			
+<style type="text/css">
+	.button1{
+		border:0px;
+		background:none;
+	}
+	input.button1:hover{
+		text-decoration:underline;
+		border:0px;
+		background:none;
+	}
+</style>
+<!--   end   -->				
+
+
 			   </tr>
 		          </table>
 	                </div>	
@@ -174,16 +221,16 @@ $(function () {
 </script>
 <div class="pageContent" >
 
-	<table  width="100%"  layoutH="135" rel="jbsxBox" class="over" >
+	<table id="testTable"  width="100%"  layoutH="110" rel="jbsxBox" class="over" >
            <tr>
                 <td>
                       <table  width="100%" border="1"   class="idtable" >
-                            <thead>
+                            <thead><% @width = @width - 50%>
                              <tr><td  width="<%=@width%>%"  >ID</td> </tr>
                             </thead>
                             <tbody>
                                <%for i in 0...$manager.records.recordsArr.length do%>
-	                         <tr rowindex=<%=i%> >
+	                         <tr rowindex=<%=i%> height="43">
 		                 <td><%=i+1%></td> 
                                  <% end %>
                            </tbody>
@@ -199,9 +246,9 @@ $(function () {
 			<td   width="<%=@width%>%" class="sort-alpha" ><%=matrix_param.parameter.name%></div></td>
 <%i+=1%>
 		<%end%>
-			<td  width="<%=@width%>%" class="sort-numeric" >Weight</td>
-			<td  width="<%=@width%>%" class="sort-numeric" >Weight</td>
-			
+			<td  width="<%=@width%>%" class="sort-numeric" >SumWeight</td>
+			<td  width="<%=@width%>%" class="sort-numeric" >PairWeight</td>
+			<td  width="<%=@width%>%" >Coverage</td>
 		 </tr>
 		</thead>
 	    <tbody>
@@ -241,7 +288,7 @@ $(function () {
 		<%end%>
 		<td><%=w%></td>
 		<td><%= $manager.records.recordsArr[i].weight.round(4)%></td>
-		
+		<td  style="color:red"> <input name="coverage[<%=i%>]" class="textInput" size="5" value="<%= $manager.records.recordsArr[i].coverage%>" style="color:red" onchange="updateTotal()">% </td>
 	   </tr>          
           <%end%>
 		
@@ -253,6 +300,9 @@ $(function () {
 	<div class="panelBar">	</div>
    </div>
  </div>
+
+</form>
+<!---  form end -->
 	
 </div>
 	<!--  ======================= uncovered ==================  --> 

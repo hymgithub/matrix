@@ -120,10 +120,12 @@ class Record
    @valuesArr
    @isNew
    @weight
+   @coverage
    def initialize 
     @valuesArr = Array.new
     @isNew = 0
     @weight=0
+    @coverage=100
    end  
    def setValue index,value
     @valuesArr[index] = value 
@@ -140,7 +142,13 @@ class Record
    def weight
    @weight
    end
+   def coverage
+	@coverage
+   end
   
+   def setcoverage co
+	@coverage= co
+   end
    def setwe wt
 	@weight = wt
    end
@@ -1144,6 +1152,7 @@ class AlgorithmController < ApplicationController
 			result.value_id = $manager.parameters.paramsArr[j].elementsArr[$manager.records.recordsArr[i].valuesArr[j]].value
 			result.has_chosen=true 
 			result.sort_id = i
+			result.coverage=100
 			result.save
 
 			end
@@ -1195,6 +1204,7 @@ class AlgorithmController < ApplicationController
 			elementindex+=1
 		end
 		record.valuesArr[paramindex]=result.value_id
+		record.setcoverage result.coverage
                 record.setTag result.tag
                        
 		paramindex+=1
@@ -1757,9 +1767,31 @@ class AlgorithmController < ApplicationController
   
 	def calculate
 		@matrix_config = MatrixConfig.find(params[:matrix_config_id])
-               
-              
+                    
 	end 
+
+
+	############# add by huangym
+        def saveCoverage
+		logger.info(params[:coverage].to_s)
+		co = params[:coverage]    # co is a hash , key is the record index, value is the coverage, both are string
+		co.each_key do |key|
+			$manager.records.recordsArr[key.to_i].setcoverage co[key].to_f     # add coverage to the record
+			results = Result.find(:all,:conditions=>["sort_id=? and matrix_config_id=?" ,key.to_i, $matrix_config.id])
+			results.each do |result|
+				result.update_attribute('coverage',co[key].to_f)
+			end
+		end
+
+		respond_to do |format|
+	                format.json{render :json=>{ 'statusCode' =>'200', 'message'=>'Save succeed!','navTabID' => 'resulttab', 'rel' =>'resulttab','config_id'=> $matrix_config.id,'url'=>"/algorithm/index" }}
+		end
+
+        end
+	############ end
+	
+
+
       #add by chuangeye start
        def addrecords
 		hash = params[:index]

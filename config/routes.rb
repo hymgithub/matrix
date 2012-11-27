@@ -13,6 +13,7 @@ Matrix::Application.routes.draw do
   post "algorithm/addrecords"
   get "groups/a"
   post  "algorithm/index"
+  post "algorithm/saveCoverage"
   post "matrix_values/update"
   
   post "matrix_params/import"

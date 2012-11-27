@@ -180,6 +180,17 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
     @matrix_config = MatrixConfig.find(matrix_config_id)
     @group = Group.find(@matrix_config.group_id)
     @user = User.find(@group.user_id)
+
+    ######add by huangym
+    #when delete a value, related limit_pair should also be deleted
+    @matrix_config.limit_pairs.each do |limit_pair|
+	if limit_pair.first_value_id==@matrix_value.value_id or limit_pair.second_value_id == @matrix_value.value_id
+		limit_pair.destroy
+        end
+    end
+    #######end 
+
+
     @matrix_value.destroy
 
     logger.info("================destroy")
