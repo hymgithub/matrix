@@ -29,7 +29,30 @@
 		save.style.display="none";
 		can.style.display = "none";
 	}
+
+ 	function funOn(node,id){
+		var s = document.getElementById("op"+id);
+		s.style.display="inline";
+		//alert(node.parentNode.parentNode.parentNode);
+		//alert(node.clientWidth);
+		//node.style.width=node.clientWidth+200+'px';
 	
+		node.setAttribute('width',node.clientWidth +200);
+		//alert(node.width);
+
+	}
+
+	function funOff(node,id){
+		var s = document.getElementById("op"+id);
+		s.style.display="none";
+	}
+
+        window.onload = ResizeWin;
+	window.onresize = ResizeWin;
+        function ResizeWin(){
+		
+	}
+
 </script>
 <!-- end -->
 
@@ -96,20 +119,19 @@
 						<div layoutH="160">
                                                        <div height="50%" id ="tablediv">
 							<table class="table"  rel="jbsxBox" style=" overflow: scroll;" >
-								<thead>
-									<tr>
-										<th width="40">ID</th>
-										<th><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></th>
+								
+									<tr style="border-color:#d0d0d0; background:#f0eff0 url(./images/tableth.png) repeat-x;">
+										<td>ID</td>
+										<td><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></td>
 										<%i=0%>
 										<%while i<@count do%>
-											<th></th>
+											<td></td>
 										<%i+=1%>
 										<%end%>
-										<th width="150">Actions</th>
+										<td width="150">Actions</td> 
 										
 									</tr>
-								</thead>
-								<tbody>
+								
 									<%      arr = Array.new
 										@matrix_config.limit_pairs.each do |limit_pair|
 											arr<<limit_pair.first_value_id
@@ -120,42 +142,13 @@
 									<%j=1%>			
 									<% @matrix_params.each do |matrix_param| %>
 											<tr target="sid_obj" rel="<%=j%>">
-													<td><%=j%><%j+=1%></td>
+													<td width="50"><%=j%><%j+=1%></td>
 													<td><%=matrix_param.parameter.name%>(<%=matrix_param.matrix_values.count%>)</td>
 										<%i=0%>
 										<%matrix_param.matrix_values.each do |matrix_value|%>
-										<td style="word-break:break-all;" id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
+										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
 				<%=matrix_value.value.value%>[<%=matrix_value.weight%>]
-
-<script type="text/javascript">
- 	function funOn(node,id){
-		var s = document.getElementById("op"+id);
-		s.style.display="inline";
-		//alert(node.parentNode.parentNode.parentNode);
-		//alert(node.clientWidth);
-		//node.style.width=node.clientWidth+200+'px';
-	
-		node.setAttribute('width',node.clientWidth +200);
-		//alert(node.width);
-
-	}
-
-	function funOff(node,id){
-		var s = document.getElementById("op"+id);
-		s.style.display="none";
-	}
-
-        window.onload = ResizeWin;
-	window.onresize = ResizeWin;
-        function ResizeWin(){
-		
-	}
-
-</script>
-
-
-			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a>
-                       <%= link_to image_tag('delete.png'), matrix_value, method: :delete, data: { confirm: 'Are you sure?' }%>  </span>
+			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a><%= link_to image_tag('delete.png'), matrix_value, method: :delete, data: { confirm: 'Are you sure?' }%>  </span>
 									
 										</td>	
 									<%i+=1%>
@@ -176,7 +169,7 @@
 									</tr>
 									<% end %>		
 								
-								</tbody>
+								
 								
 								
 							</table>
@@ -194,7 +187,7 @@
 								<form action="matrix_params/import" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
                                                              <table width="100%" style=" overflow: scroll;"  >
 								
-							         <div style="background-color:#DDDDFF" width="101%">
+							         <div style="background-color:#DDDDFF">
 									<input type="submit" value="Save" id="save<%= @matrix_config.id%>" style='display:none'> 
 									<input type="button" id="cancel<%= @matrix_config.id%>" value="Cancel" style='display:none' onclick ="hideJson('<%= @matrix_config.id%>')">   
 								<!--	<img src='assets/save.jpg' type="submit" id="save<%= @matrix_config.id%>" style='display:none;'/>   

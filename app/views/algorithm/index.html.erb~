@@ -28,14 +28,14 @@
 	                 <div class="searchBar">		
 		            <table class="searchContent" width="100%">
 			     <tr>
-				<td class="dateRange">Amount: <%=$manager.records.recordsArr.length%>	</td>
-				<td>Response Time: <%=@costtime%></td>
-				<td> <a class="delete" href="<%=exportxls_exportresults_path(:matrix_config_id=>$matrix_config,:tag=>'noid')%>" onclick="return confirm('Friendly Reminder: You can click the right SAVE to save the result.')"><span>Export To Excel</span></a>
+				<td class="dateRange" width="20">Amount: <%=$manager.records.recordsArr.length%>	</td>
+				<td width="40">Response Time: <%=@costtime%></td>
+				<td  width="40"> <a class="delete" href="<%=exportxls_exportresults_path(:matrix_config_id=>$matrix_config,:tag=>'noid')%>" onclick="return confirm('Friendly Reminder: You can click the right SAVE to save the result.')"><span>Export To Excel</span></a>
 				</td>
                           <!--  <td>	
 					<%= link_to "Assign Efforts", algorithm_calculate_path(:matrix_config_id=>$matrix_config),{:target=>"dialog", :rel =>'assignEfforts', :mask=>'true', :title=>"Assign Efforts"} %>    
 				</td>    -->
-                                <td> <form action="algorithm/index" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
+                                <td  width="40"> <form action="algorithm/index" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
                                      <input name="matrix_config_id" id="matrix_config_id" type="hidden" value="<%=$matrix_config.id%>"/>
                                       <input name="reset" id="reset" type="hidden" value="true"/>
                                        <input name="op" id="op" type="hidden" value="false"/>
@@ -43,7 +43,7 @@
                                      </form>
 				</td>
 
-				<td>
+				<td align="right">
 					<%      totalCo = 0
 						$manager.records.recordsArr.each do |record|
 							totalCo = totalCo+record.coverage
