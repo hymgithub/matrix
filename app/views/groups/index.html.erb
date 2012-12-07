@@ -46,7 +46,7 @@ $(function(){
 					
 					<li><a href="changepwd.html" target="dialog" width="600">Setting</a></li>
 					
-					<li><a href="login.html">Quite</a></li>
+					<li><a href="login.html">Quit</a></li>
 <li>
                       <%= link_to 'Add Group', new_group_path(:user_id=>@user.id),{:target=>"dialog",:rel=>"dlg_page10", :mask=>"true",:title=>"Create Group"} %>
                       
@@ -159,17 +159,15 @@ $(function(){
 						</div>
 						<div class="pageFormContent" layoutH="80" style="margin-right:0px">
 							
-							<textarea layoutH="85" style="width:99%">
+							<textarea layoutH="85" style="width:99%;background:none" readonly="readonly">
 
     Matrix design goal is to facilitate testing personnel to generate test cases, according to the need of the project of resource distribution case.
 
-Cover all combinations of two therefore are much smaller than exhaustive ones yet still very effective in finding defects.
+    Cover all combinations of two therefore are much smaller than exhaustive ones yet still very effective in finding defects.
 
     Improved Random and combinatorial(AETG)techniques
 
-    Add weight to every parameter, make sure to cover the important combinations instead the random combinations in AETG by analyse weight,meanwhile 
-
-decrease response time.
+    Add weight to every parameter, make sure to cover the important combinations instead the random combinations in AETG by analyse weight, meanwhile decrease response time.
 </textarea>
 
 		</div>

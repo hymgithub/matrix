@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
         format.html { redirect_to @group, notice: 'Group was successfully created.' }
         #format.json { render json: @group, status: :created, location: @group }
 format.json { render :json=>{'statusCode'=>'200','message'=>'Add Group Success!','navTableId'=>'sidetab','rel'=>'',
-'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>''} }
+'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>'','user_id'=>"#{params[:user_id]}"} }
       else
         format.html { render action: "new" }
         format.json { render json: @group.errors, status: :unprocessable_entity }

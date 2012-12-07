@@ -132,9 +132,9 @@ function navTabAjaxDone(json){
 	}
 }
 //add by chuangye start
-function replaceSidebar(url){
+function replaceSidebar(url,userid){
 	//alert("444");
-	$.get(url,{Action:"get",user_id:1},function(html){
+	$.get(url,{Action:"get",user_id:userid},function(html){
                // alert(html);
 		$("#sidebar").find(".accordion").remove().end().append(html).initUI();
 });
@@ -144,7 +144,7 @@ function replaceSidebar(url){
 //refresh sidebar
 function dialogDone(json){
 	dialogAjaxDone(json);
-        replaceSidebar(json.forwardUrl)
+        replaceSidebar(json.forwardUrl,json.user_id)
 }
 
 //open a new navTab

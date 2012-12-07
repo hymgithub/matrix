@@ -49,6 +49,8 @@ class MatrixConfigsController < ApplicationController
   # POST /matrix_configs.json
   def create
     @matrix_config = MatrixConfig.new(params[:matrix_config])
+    @user_id = @matrix_config.group.user_id
+
     @matrix_config.has_results =0
     respond_to do |format|
       if @matrix_config.save
@@ -56,7 +58,7 @@ class MatrixConfigsController < ApplicationController
        # format.json { render json: @matrix_config, status: :created, location: @matrix_config }
 #format.json { render :json=>{'statusCode'=>'200','message'=>'Add Matrix Success!','navTableId'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>'','confirmMsg'=>''} }
 format.json { render :json=>{'statusCode'=>'200','message'=>'Add Matrix Success!','navTableId'=>'sidetab','rel'=>'',
-'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>''} }
+'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>'','user_id'=>"#{@user_id}"} }
       else
         format.html { render action: "new" }
         format.json { render json: @matrix_config.errors, status: :unprocessable_entity }

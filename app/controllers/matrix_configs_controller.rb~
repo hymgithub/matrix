@@ -49,12 +49,16 @@ class MatrixConfigsController < ApplicationController
   # POST /matrix_configs.json
   def create
     @matrix_config = MatrixConfig.new(params[:matrix_config])
+    @user_id = @matrix_config.group.user_id
+
     @matrix_config.has_results =0
     respond_to do |format|
       if @matrix_config.save
         format.html { redirect_to @matrix_config, notice: 'Matrix config was successfully created.' }
        # format.json { render json: @matrix_config, status: :created, location: @matrix_config }
-format.json { render :json=>{'statusCode'=>'200','message'=>'Add Matrix Success!','navTableId'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>'','confirmMsg'=>''} }
+#format.json { render :json=>{'statusCode'=>'200','message'=>'Add Matrix Success!','navTableId'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>'','confirmMsg'=>''} }
+format.json { render :json=>{'statusCode'=>'200','message'=>'Add Matrix Success!','navTableId'=>'sidetab','rel'=>'',
+'callbackType'=>'closeCurrent','forwardUrl'=>"/groups/sidebartab?user_id=#{params[:user_id]}",'confirmMsg'=>'','user_id'=>"#{@user_id}"} }
       else
         format.html { render action: "new" }
         format.json { render json: @matrix_config.errors, status: :unprocessable_entity }
@@ -91,7 +95,9 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Matrix Success
 
       #format.html { redirect_to matrix_configs_url(:group_id=>@matrix_config.group_id) }
       format.html { redirect_to groups_url(:user_id=>@user) }
-      format.json { head :no_content }
+      #format.json { head :no_content }
+      format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>''} }
+ 
     end
   end
 end

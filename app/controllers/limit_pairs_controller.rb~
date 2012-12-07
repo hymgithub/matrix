@@ -58,11 +58,23 @@ format.html { redirect_to matrix_params_path(:matrix_config_id=>@limit_pair.matr
        # format.json { render json: @limit_pair, status: :created, location: @limit_pair }
 format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Group Success!','navTableId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'','confirmMsg'=>''} }
       else
-        format.html { render action: "new" }
+#        format.html { render action: "new" }
         format.json { render json: @limit_pair.errors, status: :unprocessable_entity }
       end
     end
   end
+
+=begin
+  def getSecondValue
+	@matrix_config = MatrixConfig.find(:all)
+        @matrix_params.each do |matrix_param|
+             matrix_param.matrix_values.each do |matrix_value|
+		@matrix_values<<matrix_value
+	     end
+	end
+
+  end
+=end 
 
   # PUT /limit_pairs/1
   # PUT /limit_pairs/1.json
@@ -87,9 +99,9 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Group Success!
     @limit_pair.destroy
 
     respond_to do |format|
-      #format.html { redirect_to limit_pairs_url }
-format.html { redirect_to groups_url(:user_id=>@user.id) }
-      format.json { head :no_content }
+      format.html { redirect_to limit_pairs_url }
+      #format.json { head :no_content }
+      format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>''} }
     end
   end
 end

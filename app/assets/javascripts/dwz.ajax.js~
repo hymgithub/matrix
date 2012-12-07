@@ -44,8 +44,7 @@ function iframeCallback(form, callback){
 	form.target = "callbackframe";
 	
 	_iframeResponse($iframe[0], callback || DWZ.ajaxDone);
-        //add by chuangye 
-        navTab.reloadFlag(json.navTabId);
+       
 }
 function _iframeResponse(iframe, callback){
 	var $iframe = $(iframe), $document = $(document);

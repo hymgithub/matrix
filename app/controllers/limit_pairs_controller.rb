@@ -100,7 +100,8 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Group Success!
 
     respond_to do |format|
       format.html { redirect_to limit_pairs_url }
-      format.json { head :no_content }
+      #format.json { head :no_content }
+      format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','forwardUrl'=>''} }
     end
   end
 end
