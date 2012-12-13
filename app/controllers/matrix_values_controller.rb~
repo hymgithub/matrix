@@ -174,7 +174,7 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
   # DELETE /matrix_values/1
   # DELETE /matrix_values/1.json
   def destroy
-    @matrix_value = MatrixValue.find(params[:id])
+    @matrix_value = MatrixValue.find(params[:value_id])
     @matrix_param = @matrix_value.matrix_param
     matrix_config_id = @matrix_value.matrix_param.matrix_config.id
     @matrix_config = MatrixConfig.find(matrix_config_id)
@@ -182,15 +182,13 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
     @user = User.find(@group.user_id)
 
     ######add by huangym
-    #when delete a value, related limit_pair should also be delete
+    #when delete a value, related limit_pair should also be deleted
     @matrix_config.limit_pairs.each do |limit_pair|
 	if limit_pair.first_value_id==@matrix_value.value_id or limit_pair.second_value_id == @matrix_value.value_id
 		limit_pair.destroy
         end
     end
-    #######end 
-
-
+   
     @matrix_value.destroy
 
     logger.info("================destroy")
@@ -212,9 +210,18 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
 
  
     respond_to do |format|
+	format.html { redirect_to :controller=>"matrix_params" :action=>'index',:matrix_config_id=>@matrix_param.matrix_config_id }
+        format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>''} }
 #      format.html { redirect_to matrix_values_url(:matrix_config_id=>matrix_config_id) }
-      format.html { redirect_to groups_url(:user_id=>@user) }
-      format.json { head :no_content }
+        #format.html { redirect_to groups_url(:user_id=>@user) }
+        #format.json { head :no_content }
     end
   end
+
+
+   def del
+      @matrix_value = MatrixValue.find(params[:id])
+   end
+
+
 end

@@ -148,7 +148,7 @@
 										<%matrix_param.matrix_values.each do |matrix_value|%>
 										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
 				<%=matrix_value.value.value%>[<%=matrix_value.weight%>]
-			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a><%= link_to image_tag('delete.png'), matrix_value, method: :delete, data: { confirm: 'Are you sure?' }%>  </span>
+			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a><%= link_to image_tag('delete.png'), matrix_values_del_path(:id=>matrix_value.id),{:target=>"dialog", :rel =>'delv', :mask=>'true', :title=>"warning "}  %>  </span>
 									
 										</td>	
 									<%i+=1%>
@@ -264,7 +264,7 @@
 										
 									<td>
 							<%= link_to image_tag('edit.png'), edit_limit_pair_path(limit_pair),{:title=>"Edit",:target=>"dialog",:mask=>"true"}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<%= link_to image_tag('delete.png'), limit_pair, method: :delete, data: { confirm: 'Are you sure?' }%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<%= link_to image_tag('delete.png'), limit_pairs_del_path(:id=>limit_pair.id), {:target=>"dialog", :rel =>'delpair', :mask=>'true', :title=>"warning "}%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
 									</tr>
 									<% end %>		

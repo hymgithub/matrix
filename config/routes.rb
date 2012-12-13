@@ -3,12 +3,16 @@ Matrix::Application.routes.draw do
 
   get "exportxls/export"
   get "exportxls/exportresults"
-  resources :limit_pairs
+  
   get "algorithm/calculation"  
   post "algorithm/calculation"  
   get "algorithm/calculate"
   get "groups/sidebartab"
   get "matrix_params/del"
+  get "matrix_values/del"
+  get "limit_pairs/del"
+  post "limit_pairs/destroy"
+  post "matrix_values/destroy"
   post "matrix_params/destroy"
   post "algorithm/addrecords"
   get "groups/a"
@@ -24,7 +28,7 @@ Matrix::Application.routes.draw do
   #post "matrix_params/index"
   get "algorithm/index"
   resources :group_values
-
+  resources :limit_pairs
   resources :matrix_values
 
   resources :group_parameters

@@ -95,13 +95,23 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Group Success!
   # DELETE /limit_pairs/1
   # DELETE /limit_pairs/1.json
   def destroy
-    @limit_pair = LimitPair.find(params[:id])
+    @limit_pair = LimitPair.find(params[:pair_id])
+    @matrix_config_id = @limit_pair.matrix_config_id
     @limit_pair.destroy
 
     respond_to do |format|
-      format.html { redirect_to limit_pairs_url }
+      format.html { redirect_to :controller=>"matrix_params", :action=>'index',:matrix_config_id=>@matrix_config_id }
+      format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>''} }
+      #format.html { redirect_to limit_pairs_url }
       #format.json { head :no_content }
-      format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','forwardUrl'=>''} }
+      #format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','forwardUrl'=>''} }
+      #format.json{render :json=>{ 'statusCode' =>'200', 'message'=>'Add records succeed!','navTabID' => '', 'rel' =>'','config_id'=> $matrix_config.id,'url'=>"/matrix_params/index" }}
     end
   end
+
+  def del
+      logger.info("~~~~~~~~~")
+      @limit_pair = LimitPair.find(params[:id])
+  end
+
 end
