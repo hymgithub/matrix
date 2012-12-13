@@ -24,9 +24,7 @@ class MatrixParamsController < ApplicationController
    #generate Case start
 
    #generate Case end
-
-
-
+  
     ### added by huangym ###
         hash = Hash.new
 	arry = Array.new

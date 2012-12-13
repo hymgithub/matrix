@@ -24,9 +24,9 @@ class MatrixParamsController < ApplicationController
    #generate Case start
 
    #generate Case end
-
-
-
+   logger.info("~~~~~~~~~~~~~~~~~~~~~~~~~params ~~~~")
+   logger.info(@matrix_config.matrix_params[0].parameter.name.to_s)
+   logger.info(@matrix_config.matrix_params.matrix_values[0].value.value.to_s)
     ### added by huangym ###
         hash = Hash.new
 	arry = Array.new
@@ -335,21 +335,14 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Succ
 	for i in 0...invalidPairs.length do
 		fvalue=invalidPairs[i]["first_parameter"]
 		svalue=invalidPairs[i]["second_parameter"]
-		logger.info("~~~~~~~~~~~~~~~~~~first_param")
-		logger.info(fvalue)
 		limit_pair = LimitPair.new
 		fv=Value.find_by_value(fvalue)
-		logger.info(fv.id)
 		limit_pair.first_value_id = fv.id
 		sv= Value.find_by_value(svalue)
-		logger.info(sv.id)
 		limit_pair.second_value_id =sv.id
-		logger.info(limit_pair.to_s)
-		logger.info("~~~~-----------")
 		limit_pair.matrix_config_id = @matrix_config.id
-		logger.info(limit_pair.to_s)
 		limit_pair.save
-		logger.info("0000000000000")
+		
 	end
 
 

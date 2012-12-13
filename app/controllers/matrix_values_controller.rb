@@ -36,7 +36,7 @@ class MatrixValuesController < ApplicationController
      @matrix_value = @matrix_param.matrix_values.new
 
      #@sysvalues = Value.where("parameter_id='#{@matrix_param.parameter_id}'")  #select the system parameter from database
-     @sysvalues = Value.find_by_sql ["select * from `values` where parameter_id =:parameter_id and id not in(select value_id from matrix_values where matrix_param_id=:matrix_param_id )",{:parameter_id=>@matrix_param.parameter_id,:matrix_param_id=>params[:matrix_param_id]}]
+     @sysvalues = Value.find_by_sql ["select * from `values` where parameter_id =:parameter_id and id not in(select value_id from matrix_values where matrix_param_id=:matrix_param_id ) order by value",{:parameter_id=>@matrix_param.parameter_id,:matrix_param_id=>params[:matrix_param_id]}]
    
 
 

@@ -210,7 +210,7 @@ format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Value Success!
 
  
     respond_to do |format|
-	format.html { redirect_to :controller=>"matrix_params" :action=>'index',:matrix_config_id=>@matrix_param.matrix_config_id }
+	format.html { redirect_to :controller=>"matrix_params", :action=>'index',:matrix_config_id=>@matrix_param.matrix_config_id }
         format.json { render :json=>{'statusCode'=>'200','message'=>'Delete Success!','navTabID'=>'','rel'=>'','callbackType'=>'closeCurrent','forwardUrl'=>''} }
 #      format.html { redirect_to matrix_values_url(:matrix_config_id=>matrix_config_id) }
         #format.html { redirect_to groups_url(:user_id=>@user) }
