@@ -22,7 +22,7 @@
                       <div id="jbsxBox" class="unitBox" style="margin-left:10px;">
 
 <!--     form start   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       -->
-<form action="algorithm/saveCoverage" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">
+<!--<form action="algorithm/saveCoverage" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">-->
 
 			<div class="pageHeader" style="border:1px #B8D0D6 solid">
 	                 <div class="searchBar">		
@@ -42,16 +42,19 @@
                                       <input type="submit" class="button1" name="rs" id="rs" value="Reset"/>
                                      </form>
 				</td>
-
+<form action="algorithm/saveCoverage" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">  <!--  ~~~~~~~~~~~~~~~~~~-->
 				<td align="right">
 					<%      totalCo = 0
 						$manager.records.recordsArr.each do |record|
+							if record.coverage==nil
+								record.setcoverage 100
+							end
 							totalCo = totalCo+record.coverage
 						end
 					 %>
 					Total coverage: <span id="total" style="color:red"><%=totalCo %>%</span>
 				</td>
-				<td align="right">
+				<td align="right" width="40">
 				     <input type="submit" class="button1" name="rs" id="rs" value="SAVE"style="color:red"/>
 
 				</td>

@@ -1,11 +1,35 @@
 class GroupsController < ApplicationController
 
   layout "mainlayout",:only=>"index"
+
+  def login
+	ticket = params[:ticket]
+        logger.info("~~~~~~~~~~~~~~~ticket:")
+	logger.info(ticket)
+        ticket = ticket.split('-')
+	name = ticket[ticket.length-1]
+	logger.info(name+"===")
+	@user = User.find_by_name(name)
+	logger.info(@user.id)
+	url = "http://10.162.147.193/groups?user_id="+@user.id.to_s+"&ticket="+params[:ticket]
+	
+	logger.info(url)
+	#redirect_to url
+	#redirect_to "index"
+	#redirect_to :action =>'index',:user_id=>2,:layout=>"mainlayout"
+
+	respond_to do |format|
+      		format.html { redirect_to url }
+	end
+
+  end
+
   # GET /groups
   # GET /groups.json
   def index
 
     @user = User.find(params[:user_id])
+    logger.info("----------user_id"+params[:user_id].to_s)
     @groups = @user.groups
     
 

@@ -1025,6 +1025,15 @@ class AlgorithmController < ApplicationController
 			paramsnum = @matrix_params.count
 	@width = 100/(paramsnum+2.to_f)
 			$manager = Manager.new
+
+        if params[:reset]!=nil
+        logger.info("aaaaaaaaaaaaaa=============================="+params[:reset].to_s)
+        if params[:reset].to_s=="true"
+                puts "++++++++++++++++++++++++++++++++"
+                res = $matrix_config.results.where(["tag = ?",1])
+                res.destroy_all
+	end
+	end
 	#input parameters	
 			i=0
 			 while i < paramsnum do   
@@ -1035,7 +1044,7 @@ class AlgorithmController < ApplicationController
 				       element = Element.new @matrix_params[i].matrix_values[j].value.id,0
                                        element.setweight @matrix_params[i].matrix_values[j].weight   #add by chuangye-----
 				       temparameter.addElement element
-				      end
+			        end
 				     $manager.parameters.paramsArr <<  temparameter  #store the temparameter to @parameters
 		  		i+=1
 		  	end
@@ -1044,9 +1053,10 @@ class AlgorithmController < ApplicationController
 	puts $matrix_config.has_results.to_s
         puts params[:op].to_s
         puts "~~~~~~~~~%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+	logger.info("params[~~~~~~~~~~~~~~~~~~~~~]")
         if params[:op].to_s =="true"  or  $matrix_config.has_results.to_s=="false" 
             Result.destroy_all(["matrix_config_id=?",params[:matrix_config_id]])
-         puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 			#input must not have limit contions
 			#set the haslimit 
 			  if $matrix_config.limit_pairs.count > 0
@@ -1169,14 +1179,16 @@ class AlgorithmController < ApplicationController
 	         resultnum = 0
                $manager.records.recordsArr.clear
 	       $manager.ucrecords.recordsArr.clear
-                puts params[:reset].to_s
-                
+               puts params[:reset].to_s
+=begin
+               logger.info("=============================="+params[:reset])
                if params[:reset].to_s=="true"
                 puts "++++++++++++++++++++++++++++++++"
                 res = $matrix_config.results.where(["tag = ?",1])
                 res.destroy_all
                 
                 end
+=end
 		$matrix_config.results.each do  |result|
 
 				allresults << result

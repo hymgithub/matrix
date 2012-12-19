@@ -59,7 +59,7 @@
 			<tr>
 				<label style="color:blue"><%= @matrix_value.value.value%>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<label  style="color:blue">weight:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name ="weight[<%= @matrix_value.id %>]" value="<%= @matrix_value.weight%>" onchange="checksum()"/>
+				<input type="text" name ="weight[<%= @matrix_value.id %>]" value="<%= @matrix_value.weight%>" onkeyup="checksum()"/>
 			</tr>
 		
 		</div>
@@ -71,7 +71,7 @@
 			<tr>
 				<lable><%= matrix_value.value.value%>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<label>weight:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name ="weight[<%= matrix_value.id %>]" value="<%= matrix_value.weight%>" onchange="checksum()"/>
+				<input type="text" name ="weight[<%= matrix_value.id %>]" value="<%= matrix_value.weight%>" onkeyup="checksum()"/>
 			</tr>
 		</div>
 		<% end %>

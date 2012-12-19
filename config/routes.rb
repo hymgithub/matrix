@@ -4,6 +4,9 @@ Matrix::Application.routes.draw do
   get "exportxls/export"
   get "exportxls/exportresults"
   
+  get "groups/login"
+  get "users/login"
+
   get "algorithm/calculation"  
   post "algorithm/calculation"  
   get "algorithm/calculate"
