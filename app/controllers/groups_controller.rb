@@ -1,44 +1,37 @@
 class GroupsController < ApplicationController
-
+  require "base64"
   layout "mainlayout",:only=>"index"
 
-  def login
-	ticket = params[:ticket]
-        logger.info("~~~~~~~~~~~~~~~ticket:")
-	logger.info(ticket)
-        ticket = ticket.split('-')
-	name = ticket[ticket.length-1]
-	logger.info(name+"===")
-	@user = User.find_by_name(name)
-	logger.info(@user.id)
-	url = "http://10.162.147.193/groups?user_id="+@user.id.to_s+"&ticket="+params[:ticket]
-	
-	logger.info(url)
-	#redirect_to url
-	#redirect_to "index"
-	#redirect_to :action =>'index',:user_id=>2,:layout=>"mainlayout"
-
-	respond_to do |format|
-      		format.html { redirect_to url }
-	end
-
-  end
 
   # GET /groups
   # GET /groups.json
   def index
 
     @user = User.find(params[:user_id])
+
+    # confirm the user
+    ticket = params[:ticket]
+    logger.info("~~~~~~~~~~~~~~~ticket:")
+    logger.info(ticket)
+    ticket = ticket.split('-')
+    abc = ticket[2]
+    logger.info(abc)
+    code = abc[20,abc.length-20]
+    name = Base64.decode64(code)
     logger.info("----------user_id"+params[:user_id].to_s)
+    user = User.find(@user)
+    if user.name != name
+	render :json=>"unknown user"
+
+    else
+
     @groups = @user.groups
-    
-
-
-    #@groups = Group.all
+ 
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
+    end
     end
   end
 

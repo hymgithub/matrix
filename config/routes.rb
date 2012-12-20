@@ -6,6 +6,7 @@ Matrix::Application.routes.draw do
   
   get "groups/login"
   get "users/login"
+  get "users/logout"
 
   get "algorithm/calculation"  
   post "algorithm/calculation"  

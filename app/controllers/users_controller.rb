@@ -1,27 +1,36 @@
 class UsersController < ApplicationController
-  
+ 
+  require "base64"
+
+  ### added by huangym 
   def login
 	ticket = params[:ticket]
         logger.info("~~~~~~~~~~~~~~~ticket:")
 	logger.info(ticket)
         ticket = ticket.split('-')
-	name = ticket[ticket.length-1]
-	logger.info(name+"===")
+	abc = ticket[2]
+	logger.info(abc)
+	code = abc[20,abc.length-20]
+	name = Base64.decode64(code)
+	#name = ticket[ticket.length-1]
+        #code = Base64.encode64(name)
+  	#source = Base64.decode64(code)
+	logger.info("=====name:"+name+"==="+code+"~~~~~~~~~~~~~~~~~~~~~~~`")
 	@user = User.find_by_name(name)
 	logger.info(@user.id)
-	url = "http://10.162.147.193/groups?user_id="+@user.id.to_s+"&ticket="+params[:ticket]
-	
+	url = "http://10.162.147.193/groups?user_id="+@user.id.to_s+"&ticket="+params[:ticket]	
 	logger.info(url)
-	#redirect_to url
-	#redirect_to "index"
-	#redirect_to :action =>'index',:user_id=>2,:layout=>"mainlayout"
 
 	respond_to do |format|
       		format.html { redirect_to url }
 	end
 
   end
-
+  
+  def logout
+	url = "https://10.162.152.122:8443/cas/logout?service=http://10.162.147.193/users/login"
+  end
+  ###### end huangym 
 
   # GET /users
   # GET /users.json

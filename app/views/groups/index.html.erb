@@ -44,15 +44,11 @@ $(function(){
 				<a class="logo" href="#">标志</a>
 				<ul class="nav">
 					
-					<li><a href="changepwd.html" target="dialog" width="600">Setting</a></li>
+					<li style="color:white">Welcome, <%= @user.name %> !</li>
 					
-					<li><a href="login.html">Quit</a></li>
-<li>
-                      <%= link_to 'Add Group', new_group_path(:user_id=>@user.id),{:target=>"dialog",:rel=>"dlg_page10", :mask=>"true",:title=>"Create Group"} %>
-                      
-
-                                                </li>
-				</ul>
+					<li><%= link_to 'Quit', users_logout_path %></a></li>
+				<!--	<li><%= link_to 'Add Group', new_group_path(:user_id=>@user.id),{:target=>"dialog",:rel=>"dlg_page10", :mask=>"true",:title=>"Create Group"} %>  </li>
+				</ul>     -->
 				
 			</div>
 
@@ -109,7 +105,7 @@ $(function(){
 						</ul>
 						
 					</div>
-						
+			<!--			
 					<div class="accordionHeader">
 						<h2><span>Folder</span>Analyze</h2>
 					</div>
@@ -131,7 +127,7 @@ $(function(){
 							<li><a href="javascript:;" target="navTab" rel="dlg_page2">GroupSetting</a></li>
 							<li><a href="javascript:;" target="navTab" rel="dlg_page3">Others</a></li>
 						</ul>
-					</div>
+					</div>                          -->
 				</div>
 			</div>
 		</div>
