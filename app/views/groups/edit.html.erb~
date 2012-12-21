@@ -75,10 +75,10 @@
 			<dd><%= f.text_field :name,:class=>"required",:size=>"20"%></dd>
 		</dl>
 		<dl>
-			<dt><%= f.label(value="BelongToUser")%></dt>
+			<dt><%= f.label(value="User")%></dt>
 			<dd><%= f.hidden_field :user_id,:size=>"20"%><%=@user.name%></dd>
 		</dl>
-		
+		<!--
 		<dl>
 			<dt> <%= f.label :status %></dt>
 			<dd>
@@ -92,10 +92,10 @@
 					<%end%>
 				</select>			
 			</dd>
-		</dl>
+		</dl>  -->
 		
 		<dl>
-			<dt><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Edit",:type=>"submit") %></div></div> 
+			<dt><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Apply",:type=>"submit") %></div></div> 
 			<div  class="button"><div class="buttonContent" ><button type="button" class="reset">Cancle</button></div></div></dt>
 			
 			<dd><div class="buttonActive"><div class="buttonContent"><%= link_to f.button(value="Delete"), @group, method: :delete, data: { confirm: 'Are you sure?' } %></div></div> </dd>

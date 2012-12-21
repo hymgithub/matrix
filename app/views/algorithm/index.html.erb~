@@ -42,6 +42,7 @@
                                       <input type="submit" class="button1" name="rs" id="rs" value="Reset"/>
                                      </form>
 				</td>
+<!--     form start   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       -->
 <form action="algorithm/saveCoverage" method="post" onsubmit="return validateCallback(this,navTabAjaxDone);">  <!--  ~~~~~~~~~~~~~~~~~~-->
 				<td align="right">
 					<%      totalCo = 0
@@ -283,7 +284,7 @@ $(function () {
                                         end
 				end
                           
-			%> [<%=temweight%>]
+			%> <span style="color:blue">[w<%=temweight%>]</span>
 
 		    <%w+=temweight%>
 <%end%>
@@ -377,7 +378,7 @@ $(function () {
                                         end
 			end
                           
-			%> [<%=temweight%>]
+			%> <span style="color:blue">[w<%=temweight%>]</span>
 
 		<%w+=temweight%>
 	<%end%>

@@ -39,8 +39,8 @@
 		</div>
 		<div class="formBar">
 			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="提交",:type=>"submit") %></div></div></li>
-				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Submit",:type=>"submit") %></div></div></li>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
 			</ul>
 		</div>
 	<% end %>

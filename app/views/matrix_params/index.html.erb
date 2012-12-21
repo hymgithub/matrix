@@ -104,7 +104,7 @@
 								<ul class="toolBar">
 									<li><a class="add" href="<%=new_matrix_param_path(:matrix_config_id=>@matrix_config)%>" target="dialog" mask="true"><span>Add Parameter</span></a></li>
 									<li class="line">line</li>	
-									<li><a class="edit" id="newMatrix" href="<%= algorithm_index_path(:matrix_config_id=>@matrix_config,:op=>"true") %>" target="navTab" rel="resulttab" title="<%= @name %>"><span>Create New Matrix</span></a></li>
+									<li><a class="edit" id="newMatrix" href="<%= algorithm_index_path(:matrix_config_id=>@matrix_config,:op=>"true") %>" target="navTab" rel="resulttab" title="<%= @name %>"><span>Generate Result</span></a></li>
 
 <li><a class="edit" href="javascript: showJson('<%= @matrix_config.id%>');"><span>Json Editor Panel</span></a></li>
 <% if @has_results.to_s=="true"%>
@@ -122,13 +122,14 @@
 								
 									<tr style="border-color:#d0d0d0; background:#f0eff0 url(assets/tableth.png) repeat-x;">
 										<td>ID</td>
+										<td width="150">Actions</td> 
 										<td><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></td>
 										<%i=0%>
 										<%while i<@count do%>
 											<td></td>
 										<%i+=1%>
 										<%end%>
-										<td width="150">Actions</td> 
+										
 										
 									</tr>
 								
@@ -143,11 +144,19 @@
 									<% @matrix_params.each do |matrix_param| %>
 											<tr target="sid_obj" rel="<%=j%>">
 													<td width="50"><%=j%><%j+=1%></td>
-													<td><%=matrix_param.parameter.name%>(<%=matrix_param.matrix_values.count%>)</td>
+													<td>
+									<%= link_to image_tag('edit.png'), edit_matrix_param_path(matrix_param),{:title=>"Edit",:target=>"dialog",:mask=>"true"} %>
+									<%= link_to image_tag('delete.png'), matrix_params_del_path(:id=>matrix_param),{:target=>"dialog", :rel =>'dele', :mask=>'true', :title=>"warning "} %>
+
+
+
+									<%= link_to image_tag('add.png'), new_matrix_value_path(:matrix_param_id=>matrix_param),{:title=>"Add Value",:target=>"dialog",:mask=>"true"} %> 
+									</td>
+													<td><%=matrix_param.parameter.name%></td>
 										<%i=0%>
 										<%matrix_param.matrix_values.each do |matrix_value|%>
 										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
-				<%=matrix_value.value.value%>[<%=matrix_value.weight%>]
+				<%=matrix_value.value.value%><span style="color:blue">[w<%=matrix_value.weight%>]</span>
 			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a><%= link_to image_tag('delete.png'), matrix_values_del_path(:id=>matrix_value.id),{:target=>"dialog", :rel =>'delv', :mask=>'true', :title=>"warning "}  %>  </span>
 									
 										</td>	
@@ -158,14 +167,7 @@
 										<td></td>
 									<%i+=1%>
 									<%end%>
-									<td>
-									<%= link_to image_tag('edit.png'), edit_matrix_param_path(matrix_param),{:title=>"Edit",:target=>"dialog",:mask=>"true"} %>
-									<%= link_to image_tag('delete.png'), matrix_params_del_path(:id=>matrix_param),{:target=>"dialog", :rel =>'dele', :mask=>'true', :title=>"warning "} %>
-
-
-
-									<%= link_to image_tag('add.png'), new_matrix_value_path(:matrix_param_id=>matrix_param),{:title=>"Add Value",:target=>"dialog",:mask=>"true"} %> 
-									</td>
+									
 									</tr>
 									<% end %>		
 								

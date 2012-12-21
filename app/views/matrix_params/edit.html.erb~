@@ -17,9 +17,10 @@
 			<div class="unit">
 				<label>ParameterName：</label>
 				<input name="name" value="<%=Parameter.find(@matrix_param.parameter_id).name%>" class="required" size="15"/>
-			</div>
+		<!--	</div>
 			<div class="unit">
-				<label>Select from system：</label>
+				<label>Select from system：</label>  -->
+				<div>
 				 <select  class="combox"  name="sysparameter_id">
 				   <option value="0">select from system</option>
 
@@ -32,11 +33,11 @@
 				   <option value="<%= groupparameter.parameter.id %>"><%= groupparameter.parameter.name %>(<%=groupparameter.parameter.values.count%>)</option>
 				   <% end %>
 				</select>
-
+				</div>
  			</div>
 
 		
-
+			<!--
 			<div class="unit">
 				<label>Status</label>
 				
@@ -51,12 +52,12 @@
 				</select>
 			</div>
 
-			
+			-->
 			
 		</div>
 		<div class="formBar">
 			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Edit",:type=>"submit") %></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Apply",:type=>"submit") %></div></div></li>
 				<li><div class="button"><div class="buttonContent"><button type="button" class="close">Cancel</button></div></div></li>
 			</ul>
 		</div>

@@ -26,15 +26,19 @@
 		var s=document.getElementById("tweight");
 		s.innerHTML=total.toFixed(4);
 
+		var aa=document.getElementById("must");
 		var sub = document.getElementById("submitID");
 		//alert(total.toFixed(4)+"~~~");
 		if(total.toFixed(4)!=1.0000){
 			//alert("dis");
 			sub.disabled="true";
+			
+			aa.style.display="inline";
 		}
 		else{
 			//alert("able");
 			sub.disabled="";
+			aa.style.display="none";
 			//sub.enable="true";
 		}
 
@@ -84,7 +88,7 @@
 			    <span id="tweight"> <%= total.round(4)%>
 				
 			    </span>&nbsp;&nbsp;&nbsp;&nbsp;
-			    <span id="must" style="color:red">(The total weight must be 1.0000)</span>
+			    <span id="must" style="color:red;display:none" >(The total weight must be 1.0000)</span>
 
 			</li>
 			<li><div class="buttonActive"><div class="buttonContent"> <button type="submit" id="submitID">Submit</button></div></div></li>

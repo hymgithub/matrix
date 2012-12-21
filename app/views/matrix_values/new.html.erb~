@@ -67,7 +67,7 @@
 
 		<!--     test by huangym   -->
 
-			<div class="unit">
+		<!--	<div class="unit">
 				<label> test:   </label>
 				<input name="testbox" id="testbox" value="" style="width:60px;position:absolute;"/>
 				<span style="margin-left:100px;width:18px;overflow:hidden;">
@@ -80,7 +80,7 @@
 				 		<% end %>
 					</select>
 				</span>
-			</div>
+			</div>    -->
 		<!--        test end          -->
 
 			<div class="unit">

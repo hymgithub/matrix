@@ -101,7 +101,7 @@
 -->
 
 <div class="pageContent">
-	<%= form_for(@matrix_param,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>" return  navTabSearch(this,"sidebar")" }) do |f| %>
+	<%= form_for(@matrix_param,:html=>{:class=>"pageForm",:target=>"dialog",:onsubmit=>" return  navTabSearch(this)" }) do |f| %>
 
 		<div class="pageFormContent" layoutH="50">
 
@@ -111,9 +111,8 @@
 			<div class="unit">
 				<label>ParameterName：</label>
 				<input name="name" class="textInput" size="15"/>
-			</div>
-			<div class="unit">
-				<label>Select from system：</label>
+			
+				<label>or</label>
 				 <select  class="combox"  name="sysparameter_id">
 				   <option value="0">select from system</option>
                                    <% if @sysparameters != nil and @group != nil %>
@@ -129,7 +128,7 @@
 				</select>
 
  			</div>
-
+          <!--
 			<div class="unit">
 				<label>Weight</label>
 				  <input name="weight" size="15" class="required"/>
@@ -147,7 +146,7 @@
 
 				</select>
 			</div>
-
+	 -->
 			
 			
 		</div>

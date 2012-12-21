@@ -29,7 +29,7 @@
 		            <table class="searchContent" width="100%">
 			     <tr>
 				<td class="dateRange" width="20">Amount: <%=$manager.records.recordsArr.length%>	</td>
-				<td width="40">Response Time: <%=@costtime%></td>
+				<!--<td width="40">Response Time: <%=@costtime%></td>-->
 				<td  width="40"> <a class="delete" href="<%=exportxls_exportresults_path(:matrix_config_id=>$matrix_config,:tag=>'noid')%>" onclick="return confirm('Friendly Reminder: You can click the right SAVE to save the result.')"><span>Export To Excel</span></a>
 				</td>
                           <!--  <td>	
@@ -284,7 +284,7 @@ $(function () {
                                         end
 				end
                           
-			%> [<%=temweight%>]
+			%> <span style="color:blue">[w<%=temweight%>]</span>
 
 		    <%w+=temweight%>
 <%end%>
@@ -378,7 +378,7 @@ $(function () {
                                         end
 			end
                           
-			%> [<%=temweight%>]
+			%> <span style="color:blue">[w<%=temweight%>]</span>
 
 		<%w+=temweight%>
 	<%end%>

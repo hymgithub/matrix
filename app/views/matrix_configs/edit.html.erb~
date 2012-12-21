@@ -43,7 +43,7 @@
 
 				    <%= f.hidden_field :group_id %>
 
-			<div class="unit">
+	<!--		<div class="unit">
 				<label>Status</label>
 				
 				<select class="combox" name="status">
@@ -53,19 +53,19 @@
 
 				</select>
 			</div>
-
+	
 			<div class="unit">
 				<label>ProjectVersion</label>
 				<select class="combox" name="project">					
 					<option value="<%=@matrix_config.version_id%>"><%=@matrix_config.version_id%></option>					
 				</select>
 			</div>
-			
+	-->		
 			
 		</div>
 		<div class="formBar">
 			<ul>
-				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="提交",:type=>"submit") %></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"> <%= f.button(value="Submit",:type=>"submit") %></div></div></li>
 				<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
 			</ul>
 		</div>

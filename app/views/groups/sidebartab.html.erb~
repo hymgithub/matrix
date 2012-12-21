@@ -6,7 +6,10 @@
 					<div class="accordionContent">
 						<ul class="tree treeFolder">
 						<li><a href="main.html" target="navTab" rel="main">Home</a></li>
-						
+						<li>
+<%= link_to 'Add Group', new_group_path(:user_id=>@user.id),{:target=>"dialog",:rel=>"dlg_page10", :mask=>"true",:title=>"Create Group"} %>
+
+                                               </li>
 <% @groups.each do |group| %>	
 	<li><%= link_to group.name, edit_group_path(group),{:target=>"navTab",:rel=>group.name,:onmouserover=>"showactions(this)",:onmouseout=>"hideactions(this)"}%> 
 				<%if group.matrix_configs.count>0%>						

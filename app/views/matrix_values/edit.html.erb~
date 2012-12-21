@@ -31,10 +31,13 @@
 		if(total.toFixed(4)!=1.0000){
 			//alert("dis");
 			sub.disabled="true";
+			var aa=document.getElementById("must");
+			aa.style.display="inline";
 		}
 		else{
 			//alert("able");
 			sub.disabled="";
+			
 			//sub.enable="true";
 		}
 
@@ -71,7 +74,7 @@
 			<tr>
 				<lable><%= matrix_value.value.value%>&nbsp;&nbsp;&nbsp;&nbsp;</label>
 				<label>weight:</label>&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="text" name ="weight[<%= matrix_value.id %>]" value="<%= matrix_value.weight%>" onchange="checksum()"/>
+				<input type="text" name ="weight[<%= matrix_value.id %>]" value="<%= matrix_value.weight%>" onkeyup="checksum()"/>
 			</tr>
 		</div>
 		<% end %>
@@ -84,7 +87,7 @@
 			    <span id="tweight"> <%= total.round(4)%>
 				
 			    </span>&nbsp;&nbsp;&nbsp;&nbsp;
-			    <span id="must" style="color:red">(The total weight must be 1.0000)</span>
+			    <span id="must" style="color:red;display:none" >(The total weight must be 1.0000)</span>
 
 			</li>
 			<li><div class="buttonActive"><div class="buttonContent"> <button type="submit" id="submitID">Submit</button></div></div></li>
