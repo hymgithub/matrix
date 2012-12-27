@@ -13,8 +13,13 @@ class GroupsController < ApplicationController
     ticket = params[:ticket]
     logger.info("~~~~~~~~~~~~~~~ticket:")
     logger.info(ticket)
+=begin
+    if ticket!= nil
     ticket = ticket.split('-')
-    name = ticket[ticket.length-1]
+    abc = ticket[2]
+    logger.info(abc)
+    code = abc[20,abc.length-20]
+    name = Base64.decode64(code)
     logger.info("----------user_id"+params[:user_id].to_s)
     user = User.find(@user)
     if user.name != name
@@ -24,12 +29,16 @@ class GroupsController < ApplicationController
 
     @groups = @user.groups
  
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
     end
     end
+
+    end
+=end
+
+
   end
 
   # GET /groups/1

@@ -110,22 +110,21 @@
 
 			<div class="unit">
 				<label>ParameterName：</label>
-				<input name="name" class="textInput" size="15"/>
-			
-				<label>or</label>
-				<select  class="combox"  name="sysparameter_id">
+
+				 <select  class="combox"  name="sysparameter_id">
 				   <option value="0">select from system</option>
                                    <% if @sysparameters != nil and @group != nil %>
 				   <% @sysparameters.each do |sysparameter| %>
 
-				   <option value="<%= sysparameter.id %>"><%= sysparameter.name %>(<%=sysparameter.values.count%>)</option>
+				   <option value="<%= sysparameter.id %>"><%= sysparameter.name %></option>
 				   <% end %>
 
 				<!--do by chuangye <% @group.group_parameters.each do |groupparameter| %>
 				   <option value="<%= groupparameter.parameter.id %>"><%= groupparameter.parameter.name %>(<%=groupparameter.parameter.values.count%>)</option>
 				   <% end %>-->
 				   <% end %>
-				</select>
+				</select>or
+				<input name="name" size="15" class="required" />
 
  			</div>
           <!--

@@ -16,12 +16,11 @@
 			</div>
 			<div class="unit">
 				<label>ParameterName：</label>
-				<input name="name" value="<%=Parameter.find(@matrix_param.parameter_id).name%>" class="required" size="15"/>
-		<!--	</div>
-			<div class="unit">
-				<label>Select from system：</label>  -->
-				<div>
-				 <select  class="combox"  name="sysparameter_id">
+				
+				
+				
+		
+				<select  class="combox"  name="sysparameter_id">
 				   <option value="0">select from system</option>
 
 				   <% @sysparameters.each do |sysparameter| %>
@@ -32,8 +31,16 @@
 				 <% @group.group_parameters.each do |groupparameter| %>
 				   <option value="<%= groupparameter.parameter.id %>"><%= groupparameter.parameter.name %>(<%=groupparameter.parameter.values.count%>)</option>
 				   <% end %>
-				</select>
-				</div>
+				</select> <label> or </label>
+				<input name="name" value="<%=Parameter.find(@matrix_param.parameter_id).name%>" class="required" size="15"/>
+			
+
+		
+		<!--	</div>
+			<div class="unit">
+				<label>Select from system：</label>  -->
+				 
+
  			</div>
 
 		

@@ -13,6 +13,15 @@ class GroupsController < ApplicationController
     ticket = params[:ticket]
     logger.info("~~~~~~~~~~~~~~~ticket:")
     logger.info(ticket)
+    @groups = @user.groups
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @groups }
+    end
+
+=begin
+    if ticket!= nil
     ticket = ticket.split('-')
     abc = ticket[2]
     logger.info(abc)
@@ -27,12 +36,16 @@ class GroupsController < ApplicationController
 
     @groups = @user.groups
  
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @groups }
     end
     end
+
+    end
+=end
+
+
   end
 
   # GET /groups/1

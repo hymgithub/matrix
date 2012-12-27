@@ -1,11 +1,14 @@
 Matrix::Application.routes.draw do
   resources :results
 
+  get "matrix/groups"
+
   get "exportxls/export"
   get "exportxls/exportresults"
   
   get "groups/login"
   get "users/login"
+  get "users/logout"
 
   get "algorithm/calculation"  
   post "algorithm/calculation"  
