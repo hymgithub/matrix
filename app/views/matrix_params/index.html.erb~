@@ -123,7 +123,7 @@
 									<tr style="border-color:#d0d0d0; background:#f0eff0 url(assets/tableth.png) repeat-x;">
 										<td>ID</td>
 										<td width="150">Actions</td> 
-										<td><%if @matrix_params==nil%>No parameter,please add!<%else%>Parameter Name<%end%></td>
+										<td><%if @count==0%>No parameter,please add!<%else%>Parameter Name<%end%></td>
 										<%i=0%>
 										<%while i<@count do%>
 											<td></td>

@@ -177,11 +177,25 @@ class MatrixParamsController < ApplicationController
   def update
     @matrix_param = MatrixParam.find(params[:id])
 
+
+    hash = params[:weight]
+    matrix_config_id=0
+    hash.each_key do |key|
+	matrix_value = MatrixValue.find(key.to_i)
+	matrix_value.weight = hash[key].to_f
+	matrix_value.save
+	matrix_config_id = matrix_value.matrix_param.matrix_config.id
+    end
+
+
+
     respond_to do |format|
       if @matrix_param.update_attributes(params[:matrix_param])
-        format.html { redirect_to @matrix_param, notice: 'Matrix param was successfully updated.' }
+        #format.html { redirect_to @matrix_param, notice: 'Matrix param was successfully updated.' }
 #        format.json { head :no_content }
-format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Success!','navTableId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'','confirmMsg'=>''} }
+	format.html { redirect_to matrix_params_path(:matrix_config_id=>@matrix_param.matrix_config_id)}
+	format.json { render :json=>{'statusCode'=>'200','message'=>'Edit Parameter Success!','navTableId'=>'','rel'=>'','callbackType'=>'','forwardUrl'=>'','confirmMsg'=>''} }
+
       else
         format.html { render action: "edit" }
         format.json { render json: @matrix_param.errors, status: :unprocessable_entity }

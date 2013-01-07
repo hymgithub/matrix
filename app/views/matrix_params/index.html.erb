@@ -155,7 +155,7 @@
 													<td><%=matrix_param.parameter.name%></td>
 										<%i=0%>
 										<%matrix_param.matrix_values.each do |matrix_value|%>
-										<td id="<%=matrix_value.id %>" onmouseover="funOn(this,<%=matrix_value.id %>)" onmouseout="funOff(this,<%=matrix_value.id %>)" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
+										<td id="<%=matrix_value.id %>" <% if arr.include? matrix_value.value_id %> bgcolor="#A8F999"<%end%> >  
 				<%=matrix_value.value.value%><span style="color:blue">[w<%=matrix_value.weight%>]</span>
 			<span id="op<%=matrix_value.id %>" style="display:none"><a href="<%=edit_matrix_value_path(matrix_value)%>" target="dialog" mask="true" title="Edit Weight"><%= image_tag('edit.png') %></a><%= link_to image_tag('delete.png'), matrix_values_del_path(:id=>matrix_value.id),{:target=>"dialog", :rel =>'delv', :mask=>'true', :title=>"warning "}  %>  </span>
 									
